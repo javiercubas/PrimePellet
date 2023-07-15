@@ -12,8 +12,15 @@ const Menu = () => {
             </div>
             <a href='https://www.google.es/maps/dir//MATCENTER+EUROPE+S.L.U.,+Cam.+de+Humanes+a+Torrej%C3%B3n+de+Velasco,+6,+28991+Torrej%C3%B3n+de+la+Calzada,+Madrid/@40.2079961,-3.8642629,12z/data=!4m9!4m8!1m0!1m5!1m1!1s0xd4190485fc6e097:0x95dd97c3121f41f9!2m2!1d-3.7939569!2d40.2080505!3e0?hl=es'><div className="mapa"></div></a>
             <div className='familias'>
-            <img src='./assets/Pantalla almacén_page-0099.jpg' alt='familia' className='familia'/>
-            <img src='./assets/Pantalla almacén_page-0100.jpg' alt='familia' className='familia'/>
+                <img src='./assets/Pantalla almacén_page-0099.jpg' alt='familia' className='familia' />
+                <img src='./assets/Pantalla almacén_page-0100.jpg' alt='familia' className='familia' />
+            </div>
+            <div className='familias-pack'>
+                <h3 className='titulo-familias'>packsPALET:</h3>
+                <div className='familias'>
+                    <img src='./assets/Pantalla almacén.jpg' alt='familia' className='familia' />
+                    <img src='./assets/Pantalla almacén (1).jpg' alt='familia' className='familia' />
+                </div>
             </div>
         </>
     )
