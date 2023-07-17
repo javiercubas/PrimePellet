@@ -20,6 +20,9 @@ const Menu = () => {
 
                 <img src='./assets/woodpellet-pack.jpg' alt='Woodpellet Pack' className='familia' />
                 <img src='./assets/woodpellet.jpg' alt='Woodpellet' className='familia' />
+
+                <img src='./assets/gme-pack.jpg' alt='GME Pack' className='familia' />
+                <img src='./assets/gme.jpg' alt='GME Energy' className='familia' />
             </div>
         </>
     )
