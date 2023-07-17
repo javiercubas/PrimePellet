@@ -17,6 +17,9 @@ const Menu = () => {
 
                 <img src='./assets/Pantalla almacén (1).jpg' alt='familia' className='familia' />
                 <img src='./assets/Pantalla almacén_page-0100.jpg' alt='familia' className='familia' />
+
+                <img src='./assets/woodpellet-pack.jpg' alt='Woodpellet Pack' className='familia' />
+                <img src='./assets/woodpellet.jpg' alt='Woodpellet' className='familia' />
             </div>
         </>
     )
