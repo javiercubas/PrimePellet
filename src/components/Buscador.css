@@ -1,0 +1,65 @@
+.box-buscador {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.imagen-buscador {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://carbonverde.es/wp-content/uploads/2020/11/que-es-el-pellet.jpg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px) brightness(0.8);
+    z-index: -1;
+}
+
+.titulo-buscador {
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+    width: 40%;
+    font-size: 38px;
+    text-align: center;
+}
+
+.titulo-buscador span {
+    color: #1a98ff;
+}
+
+.input-buscador {
+    border-radius: 15px;
+    padding: 20px 40px 20px 20px;
+    /* Se agregó un espacio adicional a la derecha para el ícono */
+    width: 30%;
+    position: relative;
+    outline: 2px solid #1a98ff;
+    border: 0;
+    color: #1a98ff;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.lupa-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(-50%, -50%);
+    /* Se modificó el traslado para centrar el ícono verticalmente */
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px){
+    .titulo-buscador{
+        width: 90%;
+    }
+
+    .input-buscador{
+        width: 65%;
+    }
+}

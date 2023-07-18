@@ -1,24 +1,213 @@
-.header{
-    display: flex;
+nav {
+    height: 12vh;
     width: 100%;
-    height:40vh;
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #008000;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 40px;
+    transition: top 0.7s ease, width 0.7s ease;
+    z-index: 999;
 }
 
-.logo{
+nav.fixed {
+    width: 100vw;
+    top: 0;
+    border-radius: 0;
+}
+
+nav.scrolled {
+    height: 7vh;
+}
+
+nav.scrolled .logo a {
+    width: 40px;
+    height: 40px;
+}
+
+nav.scrolled .navLinks ul li a {
+    font-size: 1vw;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.movil-title {
+    display: none;
+}
+
+.logo {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo a {
     width: 100%;
     height: 100%;
-    background-image: url("../../public/logo.jpg");
-    background-size: contain;
+    display: block;
+    background-image: url("/public/assets/logo.png");
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
 }
 
-@media screen and (max-width: 768px) {
-    .header{
-        height: 25vh;
+.navAll {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navLinks {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navLinks ul {
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navLinks ul li {
+    list-style: none;
+}
+
+.navLinks ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 600;
+}
+
+.navLinks ul li a:hover,
+ul li a:focus {
+    color: #1a98ff;
+    outline: none;
+}
+
+.joinButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.joinButton a {
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--logo);
+    font-size: 1vw;
+    font-weight: 400;
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+.joinButton a:hover,
+.joinButton a:focus {
+    background-color: white;
+    color: var(--logo);
+    outline: none;
+}
+
+@media only screen and (max-width: 1100px) {
+    .navLinks ul li a {
+        color: black;
+        font-size: 18px;
     }
-    
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5vw;
+        width: 90%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .navAll {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: right 0.3s ease, opacity 0.3s ease;
+        margin: 0;
+    }
+
+    .menu-open .navAll {
+        right: 0;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .movil-title {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--logo);
+    }
+
+    .navLinks {
+        width: 80%;
+        height: unset;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .navLinks ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .navLinks ul li a {
+        color: var(--text);
+    }
+
+    .menu-open .navLinks ul li {
+        margin-bottom: 10px;
+    }
+
+    .joinButton a {
+        font-size: 18px;
+    }
+}
+
+.no-scroll {
+    overflow: hidden;
 }
