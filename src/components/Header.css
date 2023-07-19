@@ -77,7 +77,7 @@ nav.scrolled .navLinks ul li a {
 }
 
 .navLinks ul {
-    width: 70%;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

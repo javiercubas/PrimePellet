@@ -26,15 +26,18 @@ const Header = () => {
         </div>
         <div className="navLinks">
           <ul>
-            <li onClick={() => setIsMenuOpen(false)}><a href="#mainSection">INICIO</a></li>
-            <li onClick={() => setIsMenuOpen(false)}><a href="#teamSection">PRODUCTOS</a></li>
-            <li onClick={() => setIsMenuOpen(false)}><a href="#DescriptionSection">MARCAS</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/">INICIO</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/productos">PRODUCTOS</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/productores">PRODUCTORES</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/marcas">MARCAS</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/blog">BLOG</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/quienes-somos">QUIENES SOMOS</a></li>
           </ul>
         </div>
       </div>
 
       <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <AiOutlineMenu size={32} color="var(--text)" />
+        <AiOutlineMenu size={32} color="white" />
       </div>
     </nav>
   );
