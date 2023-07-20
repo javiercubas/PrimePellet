@@ -165,8 +165,9 @@
 
     .precio-producto-page{
         font-size: 30px;
-        flex-direction: column;
-        align-items: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
     }
 
     .descripcion-producto-page{
