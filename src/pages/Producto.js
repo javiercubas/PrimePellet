@@ -5,7 +5,9 @@ import { useState } from 'react';
 
 const Producto = (props) => {
 
-    const { nombre, imagen, precio_ud, precio, descripcion, pack } = props;
+    const { nombre, imagen, precio, descripcion, pack } = props;
+
+    const precioPack = precio * pack;
 
     function calcularPrecios(precio, cp, tipoPallet) {
 
@@ -523,6 +525,7 @@ const Producto = (props) => {
                 30: 58.3,
                 40: 57.7,
                 50: 62.6,
+                70: 64.8,
                 72: 64.8,
                 80: 64.8,
             },
@@ -533,6 +536,7 @@ const Producto = (props) => {
                 30: 59.4,
                 40: 58.8,
                 50: 65.8,
+                70: 68.0,
                 72: 68.0,
                 80: 68.0,
             },
@@ -543,6 +547,7 @@ const Producto = (props) => {
                 30: 62.1,
                 40: 61.0,
                 50: 69.1,
+                70: 71.2,
                 72: 71.2,
                 80: 71.2,
             },
@@ -553,6 +558,7 @@ const Producto = (props) => {
                 30: 68.0,
                 40: 63.1,
                 50: 75.6,
+                70: 77.7,
                 72: 77.7,
                 80: 77.7,
             },
@@ -563,6 +569,7 @@ const Producto = (props) => {
                 30: 69.6,
                 40: 65.3,
                 50: 79.3,
+                70: 82.0,
                 72: 82.0,
                 80: 82.0,
             },
@@ -573,6 +580,7 @@ const Producto = (props) => {
                 30: 75.0,
                 40: 70.7,
                 50: 87.4,
+                70: 92.8,
                 72: 92.8,
                 80: 92.8,
             },
@@ -583,6 +591,7 @@ const Producto = (props) => {
                 30: 85.0,
                 40: 79.3,
                 50: 99.3,
+                70: 104.7,
                 72: 104.7,
                 80: 104.7,
             },
@@ -593,6 +602,7 @@ const Producto = (props) => {
                 30: 102.6,
                 40: 90.0,
                 50: 120.9,
+                70: 124.2,
                 72: 124.2,
                 80: 124.2,
             },
@@ -603,6 +613,7 @@ const Producto = (props) => {
                 30: 146.3,
                 40: 132.8,
                 50: 167.9,
+                70: 198.1,
                 72: 198.1,
                 80: 198.1,
             },
@@ -613,6 +624,7 @@ const Producto = (props) => {
                 30: 152.2,
                 40: 135.5,
                 50: 172.2,
+                70: 208.9,
                 72: 208.9,
                 80: 208.9,
             },
@@ -623,6 +635,7 @@ const Producto = (props) => {
                 30: 196.5,
                 40: 133.9,
                 50: 187.3,
+                70: 216.0,
                 72: 216.0,
                 80: 216.0,
             },
@@ -633,6 +646,7 @@ const Producto = (props) => {
                 30: 181.4,
                 40: 179.2,
                 50: 237.0,
+                70: 265.6,
                 72: 265.6,
                 80: 265.6,
             }
@@ -690,7 +704,7 @@ const Producto = (props) => {
 
     const [envio, setEnvio] = useState(false); // Estado para manejar el tipo de envío
 
-    const precioFinal = calcularPrecios(precio, "33720", pack);
+    const precioFinal = calcularPrecios(precioPack, "33720", pack);
 
     return (
         <div className="producto-page">
@@ -713,7 +727,7 @@ const Producto = (props) => {
                     <button onClick={() => setEnvio(true)} className={envio ? 'shipping-title active' : 'shipping-title' }>Envío a domicilio</button>
                 </div>
                 {!envio ? (
-                    <div className="precio-producto-page">{precio} € <span>(IVA INCLUIDO)</span></div>
+                    <div className="precio-producto-page">{precioPack.toFixed(2)} € <span>(IVA INCLUIDO)</span></div>
                 ) : (
                     <div className="precio-producto-page">{precioFinal} € <span>(IVA INCLUIDO)</span></div>
                 )}

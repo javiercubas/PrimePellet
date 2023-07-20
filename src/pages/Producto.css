@@ -181,4 +181,12 @@
     .cta-producto-page{
         width: 100%;
     }
+
+    .shipping-container{
+        flex-direction: column;
+    }
+
+    .shipping-title{
+        width: 100%;
+    }
 }
