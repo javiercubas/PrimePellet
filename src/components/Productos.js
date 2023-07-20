@@ -1,10 +1,11 @@
 import React from 'react'
 import Card from './Card'
 
-const Productos = () => {
+const Productos = (props) => {
+    const { titulo } = props;
     return (
         <div className="productos">
-            <h3 className="title-productos">Nuestros productos</h3>
+            <h3 className="title-productos">{titulo}</h3>
             <div className="grid-products">
                 <Card name="PELLET ASTURIAS PACK 72 uds" image="/assets/asturias-pack.jpg" price="5,45" />
                 <Card name="PELLET ASTURIAS" image="/assets/asturias.jpg" price="5,85" />
