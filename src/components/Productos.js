@@ -4,30 +4,12 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const Productos = (props) => {
-    const { titulo } = props;
-    const [productos, setProductos] = useState([]);
-
-    useEffect(() => {
-        // Carga los datos de Firestore cuando el componente se monte
-        const fetchProductos = async () => {
-            try {
-                const db = getFirestore();
-                const productosCol = collection(db, 'productos');
-                const snapshot = await getDocs(productosCol);
-                const productosData = snapshot.docs.map(doc => doc.data());
-                setProductos(productosData);
-            } catch (error) {
-                console.error('Error al cargar los productos:', error);
-            }
-        };
-
-        fetchProductos();
-    }, []);
+    const { titulo, productos, width, grid } = props;
 
     return (
-        <div className="productos">
-            <h3 className="title-productos">{titulo}</h3>
-            <div className="grid-products">
+        <div className="productos" style={{ width: width }}>
+            {titulo ? <h3 className="title-productos">{titulo}</h3> : null}
+            <div className="grid-products" style={{ gridTemplateColumns: grid}}>
                 {productos.map((producto, index) => (
                     <Card
                         key={index}

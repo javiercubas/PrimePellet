@@ -85,7 +85,7 @@ a {
 
 .grid-products{
     width: 100%;
-    display: grid;
+   display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
 }
@@ -131,9 +131,13 @@ a {
         text-align: center;
         width: 100%;
     }
+    
+    .productos{
+        width: 100%!important;
+    }
 
     .grid-products{
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 1fr)!important;
     }
 
     .title-productos{

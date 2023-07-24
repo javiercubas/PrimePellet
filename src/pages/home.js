@@ -22,13 +22,21 @@ const Home = () => {
         // Iterar sobre los documentos de ofertas y obtener los productos
         for (const ofertaDoc of snapshotOfertas.docs) {
           // Obtener el documento del producto referenciado
-          const productoRef = ofertaDoc.data().productoRef;
-          const productoSnapshot = await getDoc(productoRef);
+          const productoRef = ofertaDoc.data().ref;
 
-          // Si el documento del producto existe, agregarlo al array de productos en oferta
-          if (productoSnapshot.exists()) {
-            const productoData = productoSnapshot.data();
-            productosOfertaData.push(productoData);
+          // Validate if productoRef exists and is a valid DocumentReference
+          if (productoRef) {
+            const productoSnapshot = await getDoc(productoRef);
+
+            // Si el documento del producto existe, agregarlo al array de productos en oferta
+            if (productoSnapshot.exists()) {
+              const productoData = productoSnapshot.data();
+              productosOfertaData.push(productoData);
+            } else {
+              console.warn('Documento del producto no encontrado:', productoRef.id);
+            }
+          } else {
+            console.warn('Referencia de producto no encontrada:', ofertaDoc.id);
           }
         }
 

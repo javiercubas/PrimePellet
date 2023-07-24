@@ -7,6 +7,10 @@ import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
+import ProductosPage from './pages/ProductosPage';
+import Popup from './components/Popup';
+import Cookies from 'universal-cookie';
+import CategoriasSection from './pages/CategoriasSection';
 
 const firebaseConfig = {
   apiKey: "AIzaSyApPtWeHbfGCexvNMUu1inpEfzLB1imwwA",
@@ -40,16 +44,27 @@ function App() {
     fetchProductos();
   }, []);
 
+  const cookies = new Cookies();
+  const location = useLocation(); // Si estás utilizando React Router
+
+  const tieneCodigoPostal = cookies.get('codigoPostal');
+
+  // Verifica si el popup debe mostrarse)
+  const mostrarPopup = !tieneCodigoPostal
+
   return (
     <>
+      {mostrarPopup && <Popup />}
       <Header />
       <Routes>
-        <Route path="/" element={<Home productos={productos} />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/productos" element={<ProductosPage />} />
+        <Route path="/productores" element={<CategoriasSection />} />
         {productos.map(producto => (
           <Route
             key={producto.id} // Asegúrate de tener una propiedad 'id' única para cada producto en Firestore
             path={`/${producto.nombre.toLowerCase().trim().replaceAll(" ", "-")}`}
-            element={<Producto nombre={producto.nombre} imagen = {producto.imagen} precio = {producto.precio} descripcion = {producto.descripcion} pack = {producto.pack} />}
+            element={<Producto nombre={producto.nombre} imagen={producto.imagen} precio={producto.precio} descripcion={producto.descripcion} pack={producto.pack} />}
           />
         ))}
       </Routes>
