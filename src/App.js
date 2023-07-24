@@ -11,6 +11,8 @@ import ProductosPage from './pages/ProductosPage';
 import Popup from './components/Popup';
 import Cookies from 'universal-cookie';
 import CategoriasSection from './pages/CategoriasSection';
+import CategoriaPage from './pages/CategoriaPage';
+import Footer from './components/Footer';
 
 const firebaseConfig = {
   apiKey: "AIzaSyApPtWeHbfGCexvNMUu1inpEfzLB1imwwA",
@@ -27,6 +29,7 @@ const app = initializeApp(firebaseConfig);
 
 function App() {
   const [productos, setProductos] = useState([]);
+  const [marcas, setMarcas] = useState([]);
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -41,7 +44,20 @@ function App() {
       }
     };
 
+    const fetchMarcas = async () => {
+      try {
+        const db = getFirestore(app);
+        const marcasCol = collection(db, 'marcas');
+        const snapshot = await getDocs(marcasCol);
+        const marcasData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setMarcas(marcasData);
+      } catch (error) {
+        console.error('Error al cargar las marcas:', error);
+      }
+    };
+
     fetchProductos();
+    fetchMarcas();
   }, []);
 
   const cookies = new Cookies();
@@ -67,7 +83,18 @@ function App() {
             element={<Producto nombre={producto.nombre} imagen={producto.imagen} precio={producto.precio} descripcion={producto.descripcion} pack={producto.pack} />}
           />
         ))}
+        {marcas.map(marca => (
+          <Route
+            key={marca.id}
+            path={`/marca/${marca.nombre.toLowerCase().trim().replaceAll(' ','-')}`} // Cambiar la ruta como desees
+            element={<CategoriaPage key={marca.uid}
+              titulo={marca.nombre}
+              uid={marca.uid}
+              descripcion={marca.descripcion} />}
+          />
+        ))}
       </Routes>
+      <Footer />
     </>
   );
 }

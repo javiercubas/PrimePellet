@@ -66,6 +66,7 @@
     width: 100%;
     cursor: pointer;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .categoria-button:hover {
@@ -84,8 +85,12 @@
         align-items: center;
     }
 
+    .categoria-titulo{
+        width: 90%;
+    }
+
     .categoria-left {
-        width: 100%;
+        width: 90%;
         align-items: center;
         gap: 20px;
     }
@@ -101,5 +106,6 @@
     .categoria-button {
         padding: 20px;
         font-size: 18px;
+        width: 90%;
     }
 }

@@ -1,0 +1,91 @@
+.footer-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sponsors-titulo {
+    font-size: 40px;
+    color: #1a98ff;
+    font-weight: 1000;
+    margin-bottom: 0px;
+}
+
+.sponsors-content {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3vh;
+}
+
+.footer-container .sponsors-content svg {
+    width: 400px;
+    fill: #4a4a4a;
+    cursor: pointer;
+}
+
+/* Estilos para el SVG cuando está en hover */
+.footer-container .sponsors-content svg:hover {
+    fill: #008000;
+}
+
+.footer-bottom{
+    width: 90%;
+    padding: 0 5%;
+    background-color: #008000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-bottom-text{
+    color: #d9d9d9;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.footer-button{
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.footer-button:hover{
+    color: #1a98ff;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .sponsors-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .footer-container .sponsors-content svg {
+        width: 90%;
+    }
+
+    .footer-bottom{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 5%;
+    }
+
+    .footer-bottom-text{
+        text-align: center;
+    }
+}

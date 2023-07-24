@@ -46,21 +46,52 @@
     font-size: 18px;
 }
 
-.lupa-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translate(-50%, -50%);
-    /* Se modificó el traslado para centrar el ícono verticalmente */
-    cursor: pointer;
+.search-results {
+    background-color: white;
+    width: 30%;
+    padding: 0 30px;
+    max-height: 40vh;
+    /* Altura máxima para el contenedor de sugerencias */
+    overflow-y: auto;
+    /* Aparecerá la barra de desplazamiento cuando los resultados superen la altura máxima */
 }
 
-@media screen and (max-width: 768px){
-    .titulo-buscador{
+.search-result-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 0;
+    border-bottom: 2px solid #1a98ff;
+    /* Ajusta el espaciado vertical entre cada elemento de sugerencia */
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.search-result-item p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a98ff;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+@media screen and (max-width: 768px) {
+    .titulo-buscador {
         width: 90%;
     }
 
-    .input-buscador{
+    .input-buscador {
+        width: 65%;
+    }
+
+    .search-results {
         width: 65%;
     }
 }
