@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './CategoriaSection.css';
+import './CategoriaPage.css';
 import Productos from '../components/Productos';
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
@@ -22,15 +22,14 @@ const CategoriaSection = (props) => {
                     // Obtener los productos referenciados
                     for (const productoRef of productosRefs) {
                         const productoDocSnapshot = await getDoc(productoRef);
+
+                        // Comprobar si el documento existe antes de acceder a sus datos
                         if (productoDocSnapshot.exists()) {
                             productosData.push(productoDocSnapshot.data());
                         }
                     }
 
-                    // Limitar a 4 productos
-                    const productosLimitados = productosData.slice(0, 4);
-
-                    setProductos(productosLimitados);
+                    setProductos(productosData);
                 } else {
                     console.log('El documento de marcas no existe.');
                 }
@@ -40,16 +39,14 @@ const CategoriaSection = (props) => {
         };
 
         fetchProductos();
-    }, []);
+    }, [uid]);
 
     return (
-        <div className="categoria-container">
-            <h2 className="categoria-titulo">{titulo}</h2>
-            <div className="categoria-content">
-                <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`}>
-                    <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-descripcion' />
-                </div>
-                <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />
+        <div className="categorias-section">
+            <div className="categoria-page-container">
+                <h2 className="categoria-page-titulo">{titulo}</h2>
+                    <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-page-descripcion' />
+                    <Productos productos={productos} width="100%" grid="repeat(4, 1fr)" />
             </div>
         </div>
     );

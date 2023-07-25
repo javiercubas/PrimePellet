@@ -51,9 +51,43 @@
     width: 30%;
     padding: 0 30px;
     max-height: 40vh;
-    /* Altura máxima para el contenedor de sugerencias */
     overflow-y: auto;
-    /* Aparecerá la barra de desplazamiento cuando los resultados superen la altura máxima */
+    border-radius: 10px;
+    border: 2px solid #1a98ff;
+    display: none;
+}
+
+.search-results.show-results {
+    display: block;
+}
+
+
+/* Estilo del scrollbar */
+.search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Estilo del thumb del scrollbar */
+.search-results::-webkit-scrollbar-thumb {
+    background-color: #1a98ff;
+    border-radius: 4px;
+}
+
+/* Estilo del track del scrollbar */
+.search-results::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
+
+/* Agregar estos estilos para el search-results cuando haya resultados */
+.search-results.show-results {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* Agregar estos estilos para el input-buscador cuando haya resultados */
+.input-buscador.show-results {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .search-result-item {
@@ -70,6 +104,14 @@
     width: 50px;
     height: 50px;
     object-fit: contain;
+}
+
+.search-type {
+    text-transform: uppercase;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: black !important;
+    font-style: italic !important;
 }
 
 .search-result-item p {

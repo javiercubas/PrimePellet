@@ -3,7 +3,9 @@ import './CategoriasSection.css';
 import CategoriaSection from './CategoriaSection';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-const Categoria = () => {
+const Categoria = (props) => {
+
+  const { isMarcas } = props;
   const [marcas, setMarcas] = useState([]);
 
   useEffect(() => {
@@ -11,7 +13,7 @@ const Categoria = () => {
     const fetchMarcas = async () => {
       try {
         const db = getFirestore();
-        const marcasCol = collection(db, 'marcas');
+        const marcasCol = collection(db, isMarcas ? 'marcas' : 'productores');
         const snapshot = await getDocs(marcasCol);
         const marcasData = snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
         setMarcas(marcasData);
@@ -31,6 +33,7 @@ const Categoria = () => {
           titulo={marca.nombre}
           uid={marca.uid}
           descripcion={marca.descripcion}
+          isMarca={isMarcas}
         />
       ))}
     </div>

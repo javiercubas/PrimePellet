@@ -4,7 +4,7 @@ import Productos from '../components/Productos';
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
 const CategoriaSection = (props) => {
-    const { titulo, descripcion, uid } = props;
+    const { titulo, descripcion, uid, isMarca } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
@@ -48,10 +48,10 @@ const CategoriaSection = (props) => {
             <div className="categoria-content">
                 <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`}>
                     <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-descripcion' />
-                    {window.innerWidth >= 768 && <a href={'/marca/' + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+                    {window.innerWidth >= 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
                 </div>
                 <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />
-                {window.innerWidth < 768 && <button className="categoria-button">Más información</button>}
+                {window.innerWidth < 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
             </div>
         </div>
     );

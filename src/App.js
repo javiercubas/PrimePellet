@@ -13,6 +13,7 @@ import Cookies from 'universal-cookie';
 import CategoriasSection from './pages/CategoriasSection';
 import CategoriaPage from './pages/CategoriaPage';
 import Footer from './components/Footer';
+import SobreNosotros from './pages/SobreNosotros';
 
 const firebaseConfig = {
   apiKey: "AIzaSyApPtWeHbfGCexvNMUu1inpEfzLB1imwwA",
@@ -30,6 +31,7 @@ const app = initializeApp(firebaseConfig);
 function App() {
   const [productos, setProductos] = useState([]);
   const [marcas, setMarcas] = useState([]);
+  const [productores, setProductores] = useState([]);
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -56,8 +58,21 @@ function App() {
       }
     };
 
+    const fetchProductores = async () => {
+      try {
+        const db = getFirestore(app);
+        const productoresCol = collection(db, 'productores');
+        const snapshot = await getDocs(productoresCol);
+        const productoresData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setProductores(productoresData);
+      } catch (error) {
+        console.error('Error al cargar los productores:', error);
+      }
+    };
+
     fetchProductos();
     fetchMarcas();
+    fetchProductores();
   }, []);
 
   const cookies = new Cookies();
@@ -75,7 +90,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/productos" element={<ProductosPage />} />
-        <Route path="/productores" element={<CategoriasSection />} />
+        <Route path="/productores" element={<CategoriasSection isMarcas={false} />} />
+        <Route path="/marcas" element={<CategoriasSection isMarcas={true} />} />
+        <Route path="/sobre-nosotros" element={<SobreNosotros/>} />
         {productos.map(producto => (
           <Route
             key={producto.id} // Asegúrate de tener una propiedad 'id' única para cada producto en Firestore
@@ -86,11 +103,21 @@ function App() {
         {marcas.map(marca => (
           <Route
             key={marca.id}
-            path={`/marca/${marca.nombre.toLowerCase().trim().replaceAll(' ','-')}`} // Cambiar la ruta como desees
+            path={`/marca/${marca.nombre.toLowerCase().trim().replaceAll(' ', '-')}`} // Cambiar la ruta como desees
             element={<CategoriaPage key={marca.uid}
               titulo={marca.nombre}
-              uid={marca.uid}
+              uid={marca.id}
               descripcion={marca.descripcion} />}
+          />
+        ))}
+        {productores.map(productor => (
+          <Route
+            key={productor.id}
+            path={`/productor/${productor.nombre.toLowerCase().trim().replaceAll(' ', '-')}`} // Cambiar la ruta como desees
+            element={<CategoriaPage key={productor.uid}
+              titulo={productor.nombre}
+              uid={productor.id}
+              descripcion={productor.descripcion} />}
           />
         ))}
       </Routes>
