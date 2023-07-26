@@ -23,7 +23,13 @@
     font-size: 24px;
     font-weight: 500;
     color: black;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
     margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .sobre-nosotros p {
+        text-align: center;
+    }
 }
