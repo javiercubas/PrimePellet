@@ -6,10 +6,11 @@ import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 const Producto = (props) => {
 
-    const { nombre, imagen, precio, descripcion, pack } = props;
+    const { nombre, imagen, precio, descripcion, pack, estrellas } = props;
 
     const precioPack = precio * pack;
 
@@ -784,19 +785,78 @@ const Producto = (props) => {
         }
     };
 
+    const [valoracion, setValoracion] = useState(estrellas); // Aquí puedes cambiar el valor de ejemplo
+
+    // Genera un array de estrellas basado en la valoración del producto
+    const generarEstrellas = () => {
+        const estrellas = [];
+        for (let i = 1; i <= 5; i++) {
+            estrellas.push(
+                i <= valoracion ? (
+                    <span key={i} className="estrella-llena">
+                        &#9733;
+                    </span>
+                ) : (
+                    <span key={i} className="estrella-vacia">
+                        &#9734;
+                    </span>
+                )
+            );
+        }
+        return estrellas;
+    };
+
+    // Función para crear la sesión de pago y redireccionar al usuario a la pasarela de pago de Stripe
+    const handleBuyNow = async () => {
+        try {
+            // Hacer una solicitud POST al backend para crear una sesión de pago con Stripe
+            const response = await axios.post(
+                'http://localhost:3001/create-checkout-session', // Especifica la URL completa del backend
+                {
+                    amount: (envio ? precioFinal : precioPack.toFixed(2)) * 100,
+                    currency: 'eur',
+                    nombre: nombre,
+                    productImage: "https://primepellet.es" + imagen.replaceAll("..", "").replaceAll("//", "/"),
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+                {
+                    withCredentials: true, // Importante: incluir este atributo para enviar cookies
+                }
+            );
+
+            // Obtener el ID de la sesión de pago desde la respuesta del backend
+            const sessionId = response.data.id;
+
+            // Redireccionar al usuario a la pasarela de pago de Stripe
+            const stripe = window.Stripe('pk_test_51NY3CrIhiBCy1girW7wCZOD9ldfbNJnXu2yUXbMcfsrQT911aL8htoIzJodcdyw7GPp9M7e8hFALnnhqW56O0wX400YePDy6NV'); // Reemplaza 'TU_STRIPE_PUBLIC_KEY' con tu clave pública de Stripe
+            const { error } = await stripe.redirectToCheckout({
+                sessionId: sessionId,
+            });
+
+            if (error) {
+                console.error('Error al redireccionar a la pasarela de pago:', error);
+                // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al redireccionar a la pasarela de pago
+            }
+        } catch (error) {
+            console.error('Error al crear la sesión de pago:', error);
+            // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al crear la sesión de pago
+        }
+    };
+
+
     return (
         <div className="producto-page">
             <div className="multimedia-producto-page">
                 <img src={imagen} alt={nombre} className="img-producto-page" />
-                <h3 className="title-section-producto">Datos técnicos y reglamentarios</h3>
-                <div className="oneline-multimedia-file">
-                    <FaDownload className="file-icon" />
-                    <span className="file-title">Descargar certificado EN PLUS A1</span>
-                </div>
-                <div className="oneline-multimedia-file">
-                    <FaDownload className="file-icon" />
-                    <span className="file-title">Descargar certificado DIN PLUS</span>
-                </div>
+                <h3 className="title-section-producto">Valoraciones</h3>
+                <p className="descripcion-valoraciones">
+                    Nuestros productos son evaluados por expertos en la materia, quienes han otorgado una valoración de {valoracion} sobre 5 estrellas. La valoración se basa en criterios como la calidad del producto, la sostenibilidad, la eficiencia energética y la satisfacción del cliente. Puedes confiar en que nuestras valoraciones reflejan la excelencia de nuestros productos.
+                </p>
+                <div className="estrellas">{generarEstrellas()}</div>
             </div>
             <div className="info-producto-page">
                 <h1 className="title-producto-page">{nombre}</h1>
@@ -824,12 +884,12 @@ const Producto = (props) => {
                                 Añadir un código postal para calcular el precio <FaPlus size={15} color="#008000" />
                             </p>
                         )
-                        :
-                        (
-                            <p className="cp-envio" onClick={() => setIsEditing(true)}>
-                                Código postal: <span>{codigoPostal}</span> <FaPencilAlt size={15} style={{ cursor: 'pointer' }} color="#008000" />
-                            </p>
-                        )}
+                            :
+                            (
+                                <p className="cp-envio" onClick={() => setIsEditing(true)}>
+                                    Código postal: <span>{codigoPostal}</span> <FaPencilAlt size={15} style={{ cursor: 'pointer' }} color="#008000" />
+                                </p>
+                            )}
                         {showAlert && (
                             <p className="alert-text">El código postal debe ser un número de 5 dígitos entre 01000 y 50999.</p>
                         )}
@@ -843,9 +903,7 @@ const Producto = (props) => {
                 <div className="descripcion-producto-page">
                     <div dangerouslySetInnerHTML={{ __html: descripcion }} />
                 </div>
-                <a href="/" className="cta-link">
-                    <button className="cta-producto-page">COMPRAR AHORA</button>
-                </a>
+                <button className="cta-producto-page" onClick={handleBuyNow}>COMPRAR AHORA</button>
             </div>
         </div>
     )
