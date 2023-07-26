@@ -811,7 +811,7 @@ const Producto = (props) => {
         try {
             // Hacer una solicitud POST al backend para crear una sesión de pago con Stripe
             const response = await axios.post(
-                'http://localhost:3001/create-checkout-session', // Especifica la URL completa del backend
+                'http://93.93.118.169/create-checkout-session', // Especifica la URL completa del backend
                 {
                     amount: (envio ? precioFinal : precioPack.toFixed(2)) * 100,
                     currency: 'eur',
