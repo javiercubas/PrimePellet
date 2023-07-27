@@ -10,29 +10,25 @@ const Buscador = () => {
   const [isDefaultSearch, setIsDefaultSearch] = useState(true);
   const showResults = searchResults.length > 0;
 
+  const buscarTodos = async (searchValue) => {
+    const [productos, marcas, productores] = await Promise.all([
+      buscarProductos(searchValue),
+      buscarMarcas(searchValue),
+      buscarProductores(searchValue),
+    ]);
+
+    return [...productos, ...marcas, ...productores];
+  };
+
   useEffect(() => {
-    buscarProductos(searchValue).then((productos) => {
-      if (productos.length > 0) {
-        setSearchResults(productos);
-        setIsDefaultSearch(false);
-      }
-    });
-
-    buscarMarcas(searchValue).then((marcas) => {
-      if (marcas.length > 0) {
-        setSearchResults(marcas);
-        setIsDefaultSearch(false);
-      }
-    });
-
-    buscarProductores(searchValue).then((productores) => {
-      if (productores.length > 0) {
-        setSearchResults(productores);
+    buscarTodos(searchValue).then((results) => {
+      if (results.length > 0) {
+        setSearchResults(results);
         setIsDefaultSearch(false);
       }
     });
   }, [searchValue]);
-    
+
   return (
     <div className={`box-buscador${isDefaultSearch ? ' no-results' : ''}`}>
       <div className='imagen-buscador' />
