@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Buscador.css';
-import { buscarProductos } from '../modelos/ProductoModel';
-import { buscarMarcas } from '../modelos/MarcaModel';
-import { buscarProductores } from '../modelos/ProductorModel';
 
 const Buscador = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -10,27 +7,16 @@ const Buscador = () => {
   const [isDefaultSearch, setIsDefaultSearch] = useState(true);
   const showResults = searchResults.length > 0;
 
-  const buscarTodos = async (searchValue) => {
-    const [productos, marcas, productores] = await Promise.all([
-      buscarProductos(searchValue),
-      buscarMarcas(searchValue),
-      buscarProductores(searchValue),
-    ]);
+  useEffect(async () => {
+    const response = await fetch(`https://93.93.118.169/buscar?search=${searchValue}`);
+    const productos = await response.json();
+    setSearchResults(productos);
+    setIsDefaultSearch(searchValue.length < 1);
 
-    return [...productos, ...marcas, ...productores];
-  };
+    if (searchValue.length < 1) {
+      setSearchResults([]);
+    }
 
-  useEffect(() => {
-    // Perform the search using buscarTodos
-    buscarTodos(searchValue).then((results) => {
-      if (results.length > 0) {
-        setSearchResults(results);
-        setIsDefaultSearch(false);
-      } else {
-        setSearchResults([]);
-        setIsDefaultSearch(true);
-      }
-    });
   }, [searchValue]);
 
   return (
