@@ -20,24 +20,17 @@ const Buscador = () => {
     return [...productos, ...marcas, ...productores];
   };
 
-  // This useEffect handles the search when searchValue changes
   useEffect(() => {
-    if (searchValue.trim() === '') {
-      // If the searchValue is empty, reset the search results and the search status
-      setSearchResults([]);
-      setIsDefaultSearch(true);
-    } else {
-      // Perform the search using buscarTodos
-      buscarTodos(searchValue).then((results) => {
-        if (results.length > 0) {
-          setSearchResults(results);
-          setIsDefaultSearch(false);
-        } else {
-          setSearchResults([]);
-          setIsDefaultSearch(true);
-        }
-      });
-    }
+    // Perform the search using buscarTodos
+    buscarTodos(searchValue).then((results) => {
+      if (results.length > 0) {
+        setSearchResults(results);
+        setIsDefaultSearch(false);
+      } else {
+        setSearchResults([]);
+        setIsDefaultSearch(true);
+      }
+    });
   }, [searchValue]);
 
   return (
