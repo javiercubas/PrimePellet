@@ -1,45 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './CategoriaSection.css';
 import Productos from '../components/Productos';
-import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { getMarcaProductos } from '../modelos/ProductoModel';
 
 const CategoriaSection = (props) => {
-    const { titulo, descripcion, uid, isMarca } = props;
+    const { id, isMarca, titulo, descripcion } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        // Carga los datos de Firestore cuando el componente se monte
-        const fetchProductos = async () => {
-            try {
-                const db = getFirestore();
-                const marcasDocRef = doc(db, 'marcas', uid);
-                const marcasDocSnapshot = await getDoc(marcasDocRef);
+        getMarcaProductos(id, 4).then((productos) => {
+            setProductos(productos);
+        });
 
-                if (marcasDocSnapshot.exists()) {
-                    const productosRefs = marcasDocSnapshot.data().productos || [];
-                    const productosData = [];
-
-                    // Obtener los productos referenciados
-                    for (const productoRef of productosRefs) {
-                        const productoDocSnapshot = await getDoc(productoRef);
-                        if (productoDocSnapshot.exists()) {
-                            productosData.push(productoDocSnapshot.data());
-                        }
-                    }
-
-                    // Limitar a 4 productos
-                    const productosLimitados = productosData.slice(0, 4);
-
-                    setProductos(productosLimitados);
-                } else {
-                    console.log('El documento de marcas no existe.');
-                }
-            } catch (error) {
-                console.error('Error al cargar los productos:', error);
-            }
-        };
-
-        fetchProductos();
     }, []);
 
     return (

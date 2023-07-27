@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CategoriasSection.css';
 import CategoriaSection from './CategoriaSection';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getMarcas } from '../modelos/MarcaModel';
 
 const Categoria = (props) => {
 
@@ -9,31 +9,20 @@ const Categoria = (props) => {
   const [marcas, setMarcas] = useState([]);
 
   useEffect(() => {
-    // Cargar las marcas cuando el componente se monte
-    const fetchMarcas = async () => {
-      try {
-        const db = getFirestore();
-        const marcasCol = collection(db, isMarcas ? 'marcas' : 'productores');
-        const snapshot = await getDocs(marcasCol);
-        const marcasData = snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
-        setMarcas(marcasData);
-      } catch (error) {
-        console.error('Error al cargar las marcas:', error);
-      }
-    };
+    getMarcas().then((marcas) => {
+      setMarcas(marcas);
+    });
 
-    fetchMarcas();
   }, []);
 
   return (
     <div className="categorias-section">
       {marcas.map(marca => (
         <CategoriaSection
-          key={marca.uid}
-          titulo={marca.nombre}
-          uid={marca.uid}
-          descripcion={marca.descripcion}
+          id={marca.id}
           isMarca={isMarcas}
+          titulo={marca.nombre}
+          descripcion={marca.descripcion}
         />
       ))}
     </div>

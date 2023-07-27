@@ -31,4 +31,18 @@ export const getProductos = async () => {
     return productos.map((producto) => new ProductoModel(producto));
 };
 
+// Función para consultar 4 productos de la marca de la api
+export const getMarcaProductos = async (id, limit) => {
+    const response = await fetch(`https://93.93.118.169/marcas/${id}/productos?limit=${limit}`);
+    const productos = await response.json();
+    return productos.map((producto) => new ProductoModel(producto));
+};
+
+// Función para consultar un producto de la api
+export const getProducto = async (id) => {
+    const response = await fetch(`https://93.93.118.169/productos/${id}`);
+    const producto = await response.json();
+    return new ProductoModel(producto);
+};
+
 export default ProductoModel;
