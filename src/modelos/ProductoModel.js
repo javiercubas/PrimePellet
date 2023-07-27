@@ -31,11 +31,4 @@ export const getProductos = async () => {
     return productos.map((producto) => new ProductoModel(producto));
 };
 
-// Función para consultar un producto de la api
-export const getProducto = async (id) => {
-    const response = await fetch(`https://93.93.118.169/productos/${id}`);
-    const producto = await response.json();
-    return new ProductoModel(producto);
-};
-
 export default ProductoModel;

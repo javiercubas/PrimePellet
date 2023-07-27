@@ -6,9 +6,10 @@ import Producto from './pages/Producto'
 import CategoriasSection from './pages/CategoriasSection'
 import CategoriaPage from './pages/CategoriaPage'
 import SobreNosotros from './pages/SobreNosotros'
-import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore'
-import { initializeApp } from "firebase/app";
 import { useEffect, useState } from 'react';
+import { getProductos } from './modelos/ProductoModel';
+import { getProductores } from './modelos/ProductorModel';
+import { getMarcas } from './modelos/MarcaModel';
 
 const Router = () => {
 
@@ -17,45 +18,18 @@ const Router = () => {
     const [productores, setProductores] = useState([]);
 
     useEffect(() => {
-        const fetchProductos = async () => {
-            try {
-                const db = getFirestore();
-                const productosCol = collection(db, 'productos');
-                const snapshot = await getDocs(productosCol);
-                const productosData = snapshot.docs.map(doc => doc.data());
-                setProductos(productosData);
-            } catch (error) {
-                console.error('Error al cargar los productos:', error);
-            }
-        };
+        getProductos().then((productos) => {
+            setProductos(productos);
+        });
 
-        const fetchMarcas = async () => {
-            try {
-                const db = getFirestore();
-                const marcasCol = collection(db, 'marcas');
-                const snapshot = await getDocs(marcasCol);
-                const marcasData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setMarcas(marcasData);
-            } catch (error) {
-                console.error('Error al cargar las marcas:', error);
-            }
-        };
+        getMarcas().then((marcas) => {
+            setMarcas(marcas);
+        });
 
-        const fetchProductores = async () => {
-            try {
-                const db = getFirestore();
-                const productoresCol = collection(db, 'productores');
-                const snapshot = await getDocs(productoresCol);
-                const productoresData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setProductores(productoresData);
-            } catch (error) {
-                console.error('Error al cargar los productores:', error);
-            }
-        };
+        getProductores().then((productores) => {
+            setProductores(productores);
+        });
 
-        fetchProductos();
-        fetchMarcas();
-        fetchProductores();
     }, []);
 
     return (

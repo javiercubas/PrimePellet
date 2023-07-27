@@ -1,19 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Home from './pages/home';
-import Producto from './pages/Producto';
+import { useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
-import ProductosPage from './pages/ProductosPage';
 import Popup from './components/Popup';
 import Cookies from 'universal-cookie';
-import CategoriasSection from './pages/CategoriasSection';
-import CategoriaPage from './pages/CategoriaPage';
 import Footer from './components/Footer';
-import SobreNosotros from './pages/SobreNosotros';
 import Router from './Router';
 
 const firebaseConfig = {
