@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const Productos = (props) => {
     const { titulo, productos, width, grid } = props;

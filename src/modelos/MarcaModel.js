@@ -14,4 +14,11 @@ export const getMarcas = async () => {
     return marcas.map((marca) => new MarcaModel(marca));
 };
 
+// Función para buscar marcas de la api
+export const buscarMarcas = async (query) => {
+    const response = await fetch(`https://93.93.118.169/marcas?search=${query}`);
+    const marcas = await response.json();
+    return marcas.map((marca) => new MarcaModel(marca));
+};
+
 export default MarcaModel;

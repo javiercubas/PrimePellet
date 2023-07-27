@@ -45,4 +45,18 @@ export const getProducto = async (id) => {
     return new ProductoModel(producto);
 };
 
+// Función para buscar productos de la api
+export const buscarProductos = async (query) => {
+    const response = await fetch(`https://93.93.118.169/productos?search=${query}`);
+    const productos = await response.json();
+    return productos.map((producto) => new ProductoModel(producto));
+};
+
+// Función para cargar ofertas de la api
+export const getOfertas = async () => {
+    const response = await fetch('https://93.93.118.168/ofertas');
+    const ofertas = await response.json();
+    return ofertas.map((oferta) => new ProductoModel(oferta));
+};
+
 export default ProductoModel;

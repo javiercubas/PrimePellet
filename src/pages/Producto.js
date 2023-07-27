@@ -1,7 +1,5 @@
 import React from 'react'
 import './Producto.css'
-import { FaDownload } from 'react-icons/fa';
-import { BsInfoCircle } from 'react-icons/bs';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -854,7 +852,7 @@ const Producto = (props) => {
                 <img src={imagen} alt={nombre} className="img-producto-page" />
                 <h3 className="title-section-producto">Valoraciones</h3>
                 <p className="descripcion-valoraciones">
-                    Nuestros productos son evaluados por expertos en la materia, quienes han otorgado una valoración de {valoracion} sobre 5 estrellas. La valoración se basa en criterios como la calidad del producto, la sostenibilidad, la eficiencia energética y la satisfacción del cliente. Puedes confiar en que nuestras valoraciones reflejan la excelencia de nuestros productos.
+                    Los productos son evaluados por expertos en la materia, quienes han otorgado una valoración de {valoracion} sobre 5 estrellas. La valoración se basa en criterios como la calidad del producto, la sostenibilidad, la eficiencia energética y la satisfacción del cliente. Puedes confiar en que nuestras valoraciones reflejan la excelencia de nuestros productos.
                 </p>
                 <div className="estrellas">{generarEstrellas()}</div>
             </div>

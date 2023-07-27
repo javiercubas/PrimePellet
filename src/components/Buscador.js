@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Buscador.css';
-import { getFirestore, collection, query, where, getDocs, limit, orderBy, startAt, endAt } from 'firebase/firestore';
+import { buscarProductos } from '../modelos/ProductoModel';
+import { buscarMarcas } from '../modelos/MarcaModel';
+import { buscarProductores } from '../modelos/ProductorModel';
 
 const Buscador = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -9,51 +11,28 @@ const Buscador = () => {
   const showResults = searchResults.length > 0;
 
   useEffect(() => {
-    const fetchSearchResults = async () => {
-      try {
-        const db = getFirestore();
-        const productosCol = collection(db, 'productos');
-        const productoresCol = collection(db, 'productores');
-        const marcasCol = collection(db, 'marcas');
-
-        // Convertimos la palabra ingresada a minúsculas para asegurarnos de que coincida correctamente
-        const searchValueLower = searchValue.toLowerCase();
-
-        // Realizamos las tres consultas en paralelo utilizando Promise.all
-        const [productosSnapshot, productoresSnapshot, marcasSnapshot] = await Promise.all([
-          getDocs(query(productosCol, where('etiquetas', 'array-contains', searchValueLower))),
-          getDocs(query(productoresCol, where('etiquetas', 'array-contains', searchValueLower))),
-          getDocs(query(marcasCol, where('etiquetas', 'array-contains', searchValueLower)))
-        ]);
-
-        // Obtenemos los resultados de cada consulta
-        const productosResults = productosSnapshot.docs.map(doc => ({ ...doc.data(), tipo: 'Producto' }));
-        const productoresResults = productoresSnapshot.docs.map(doc => ({ ...doc.data(), tipo: 'Productor' }));
-        const marcasResults = marcasSnapshot.docs.map(doc => ({ ...doc.data(), tipo: 'Marca' }));
-
-        // Combinamos todos los resultados en una sola lista
-        const allResults = [...productosResults, ...productoresResults, ...marcasResults];
-
-        if (allResults.length > 0) {
-          setSearchResults(allResults);
-          setIsDefaultSearch(false);
-        } else {
-          // Si no se encuentran resultados, mostramos el mensaje de búsqueda por defecto
-          setIsDefaultSearch(true);
-        }
-      } catch (error) {
-        console.error('Error al realizar la búsqueda:', error);
+    buscarProductos(searchValue).then((productos) => {
+      if (productos.length > 0) {
+        setSearchResults(productos);
+        setIsDefaultSearch(false);
       }
-    };
+    });
 
-    if (searchValue !== '') {
-      fetchSearchResults();
-    } else {
-      setSearchResults([]);
-      setIsDefaultSearch(true);
-    }
+    buscarMarcas(searchValue).then((marcas) => {
+      if (marcas.length > 0) {
+        setSearchResults(marcas);
+        setIsDefaultSearch(false);
+      }
+    });
+
+    buscarProductores(searchValue).then((productores) => {
+      if (productores.length > 0) {
+        setSearchResults(productores);
+        setIsDefaultSearch(false);
+      }
+    });
   }, [searchValue]);
-
+    
   return (
     <div className={`box-buscador${isDefaultSearch ? ' no-results' : ''}`}>
       <div className='imagen-buscador' />
