@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Buscador.css';
+import { buscar } from '../modelos/ProductoModel';
 
 const Buscador = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -8,14 +9,11 @@ const Buscador = () => {
   const showResults = searchResults.length > 0;
 
   useEffect(async () => {
-    const response = await fetch(`https://93.93.118.169/buscar?search=${searchValue}`);
-    const productos = await response.json();
-    setSearchResults(productos);
-    setIsDefaultSearch(searchValue.length < 1);
-
-    if (searchValue.length < 1) {
-      setSearchResults([]);
+    buscar(searchValue).then((results) => {
+      setSearchResults(results);
+      setIsDefaultSearch(false);
     }
+    );
 
   }, [searchValue]);
 

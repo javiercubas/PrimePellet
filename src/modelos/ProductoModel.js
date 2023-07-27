@@ -59,4 +59,35 @@ export const getOfertas = async () => {
     return ofertas.map((oferta) => new ProductoModel(oferta));
 };
 
+// Funcion para buscar productos, marcas y productores de la api
+export const buscar = async (query) => {
+    const response = await fetch(`https://93.93.118.169/buscar?search=${searchValue}`);
+    const productos = await response.json();
+    // Guardamos los resultados en un array
+    const results = [];
+    // Recorremos los productos
+    productos.forEach((producto) => {
+        // Agregamos el producto al array de resultados
+        results.push(new ProductoModel(producto));
+    }
+    );
+
+    // Recorremos las marcas
+    marcas.forEach((marca) => {
+        // Agregamos la marca al array de resultados
+        results.push(new MarcaModel(marca));
+    }
+    );
+
+    // Recorremos los productores
+    productores.forEach((productor) => {
+        // Agregamos el productor al array de resultados
+        results.push(new ProductorModel(productor));
+    }
+    );
+    
+    // Retornamos los resultados
+    return results;
+};
+
 export default ProductoModel;
