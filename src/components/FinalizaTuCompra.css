@@ -17,6 +17,9 @@
     top: 20px;
     left: 20px;
     margin: 0;
+    color: #1a98ff;
+    text-transform: uppercase;
+    font-style: italic;
 }
 
 .finaliza-close-icon {
@@ -67,7 +70,7 @@
 .finaliza-input {
     height: 40px;
     border-radius: 5px;
-    border: 2px solid #1a98ff;
+    border: 3px solid black;
     padding: 5px;
     font-size: 12px;
     font-weight: 500;
@@ -75,6 +78,11 @@
     text-align: left;
     text-transform: uppercase;
     margin-top: 0;
+}
+
+.finaliza-input:focus {
+    outline: none;
+    border: 3px solid #1a98ff;
 }
 
 .finaliza-button{
