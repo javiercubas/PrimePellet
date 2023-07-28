@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { getProductos } from './modelos/ProductoModel';
 import { getProductores } from './modelos/ProductorModel';
 import { getMarcas } from './modelos/MarcaModel';
+import CompraExitosa from './pages/CompraExitosa'
 
 const Router = () => {
 
@@ -39,6 +40,7 @@ const Router = () => {
             <Route path="/productores" element={<CategoriasSection isMarcas={false} />} />
             <Route path="/marcas" element={<CategoriasSection isMarcas={true} />} />
             <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+            <Route path="/compra-exitosa" element={<CompraExitosa />} />
             {productos.map(producto => (
                 <Route
                     key={producto.id} // Asegúrate de tener una propiedad 'id' única para cada producto en Firestore

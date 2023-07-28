@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import FinalizaTuCompra from '../components/FinalizaTuCompra';
 
 const Producto = (props) => {
 
@@ -804,47 +805,12 @@ const Producto = (props) => {
         return estrellas;
     };
 
-    // Función para crear la sesión de pago y redireccionar al usuario a la pasarela de pago de Stripe
-    const handleBuyNow = async () => {
-        try {
-            // Hacer una solicitud POST al backend para crear una sesión de pago con Stripe
-            const response = await axios.post(
-                'https://api.primepellet.es/create-checkout-session', // Especifica la URL completa del backend
-                {
-                    amount: (envio ? precioFinal : precioPack.toFixed(2)) * 100,
-                    currency: 'eur',
-                    nombre: nombre,
-                    productImage: "https://primepellet.es" + imagen.replaceAll("..", "").replaceAll("//", "/"),
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                },
-                {
-                    withCredentials: true, // Importante: incluir este atributo para enviar cookies
-                }
-            );
+    const [showPopup, setShowPopup] = useState(false); // Estado para controlar si se muestra el popup
 
-            // Obtener el ID de la sesión de pago desde la respuesta del backend
-            const sessionId = response.data.id;
-
-            // Redireccionar al usuario a la pasarela de pago de Stripe
-            const stripe = window.Stripe('pk_test_51NY3CrIhiBCy1girW7wCZOD9ldfbNJnXu2yUXbMcfsrQT911aL8htoIzJodcdyw7GPp9M7e8hFALnnhqW56O0wX400YePDy6NV'); // Reemplaza 'TU_STRIPE_PUBLIC_KEY' con tu clave pública de Stripe
-            const { error } = await stripe.redirectToCheckout({
-                sessionId: sessionId,
-            });
-
-            if (error) {
-                console.error('Error al redireccionar a la pasarela de pago:', error);
-                // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al redireccionar a la pasarela de pago
-            }
-        } catch (error) {
-            console.error('Error al crear la sesión de pago:', error);
-            // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al crear la sesión de pago
-        }
+    // Función para mostrar el popup
+    const handleShowPopup = () => {
+        setShowPopup(true);
     };
-
 
     return (
         <div className="producto-page">
@@ -901,7 +867,8 @@ const Producto = (props) => {
                 <div className="descripcion-producto-page">
                     <div dangerouslySetInnerHTML={{ __html: descripcion }} />
                 </div>
-                <button className="cta-producto-page" onClick={handleBuyNow}>COMPRAR AHORA</button>
+                <button className="cta-producto-page" onClick={handleShowPopup}>COMPRAR AHORA</button>
+                {showPopup && <FinalizaTuCompra nombre={nombre} imagen={imagen} precioPack={precioPack} envio={envio} precioFinal={precioFinal} />}
             </div>
         </div>
     )
