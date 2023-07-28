@@ -64,21 +64,40 @@ export const getOfertas = async () => {
 
 // Funcion para buscar productos, marcas y productores de la api
 export const buscar = async (searchValue) => {
-    const response = await fetch(`https://93.93.118.169/buscar?search=${searchValue}`);
-    const productos = await response.json();
-    // Guardamos los resultados en un array
-    const results = [];
-    // Recorremos los productos
-    productos.forEach((producto) => {
-        // Agregamos el producto al array de resultados
-        if (producto.tipo == 'Marca') results.push(new MarcaModel(producto));
-        else if (producto.tipo == 'Productor') results.push(new ProductorModel(producto));
-        else results.push(new ProductoModel(producto));
-    }
-    );
+    try {
+        const response = await fetch(`https://93.93.118.169/buscar?search=${searchValue}`);
 
-    // Retornamos los resultados
-    return results;
+        if (!response.ok) {
+            // Check if the response status is not OK (e.g., 404 Not Found, 500 Internal Server Error, etc.)
+            throw new Error('Error al buscar los productos, marcas y productores');
+        }
+
+        const productos = await response.json();
+        // Guardamos los resultados en un array
+        const results = [];
+        // Recorremos los productos
+        productos.forEach((producto) => {
+            try {
+                // Agregamos el producto al array de resultados based on the tipo field
+                if (producto.tipo === 'Marca') {
+                    results.push(new MarcaModel(producto));
+                } else if (producto.tipo === 'Productor') {
+                    results.push(new ProductorModel(producto));
+                } else {
+                    results.push(new ProductoModel(producto));
+                }
+            } catch (error) {
+                // Handle any errors in the constructors of the models
+                console.error(error);
+            }
+        });
+
+        // Retornamos los resultados
+        return results;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al buscar los productos, marcas y productores');
+    }
 };
 
 export default ProductoModel;
