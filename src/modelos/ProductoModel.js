@@ -29,35 +29,35 @@ class ProductoModel {
 
 // Función para consultar todos los productos de la api
 export const getProductos = async () => {
-    const response = await fetch('https://93.93.118.169/productos');
+    const response = await fetch('https://api.primepellet.es/productos');
     const productos = await response.json();
     return productos.map((producto) => new ProductoModel(producto));
 };
 
 // Función para consultar 4 productos de la marca de la api
 export const getMarcaProductos = async (id, limit) => {
-    const response = await fetch(`https://93.93.118.169/marcas/${id}/productos?limit=${limit}`);
+    const response = await fetch(`https://api.primepellet.es/marcas/${id}/productos?limit=${limit}`);
     const productos = await response.json();
     return productos.map((producto) => new ProductoModel(producto));
 };
 
 // Función para consultar un producto de la api
 export const getProducto = async (id) => {
-    const response = await fetch(`https://93.93.118.169/productos/${id}`);
+    const response = await fetch(`https://api.primepellet.es/productos/${id}`);
     const producto = await response.json();
     return new ProductoModel(producto);
 };
 
 // Función para buscar productos de la api
 export const buscarProductos = async (query) => {
-    const response = await fetch(`https://93.93.118.169/productos?search=${query}`);
+    const response = await fetch(`https://api.primepellet.es/productos?search=${query}`);
     const productos = await response.json();
     return productos.map((producto) => new ProductoModel(producto));
 };
 
 // Función para cargar ofertas de la api
 export const getOfertas = async () => {
-    const response = await fetch('https://93.93.118.168/ofertas');
+    const response = await fetch('https://api.primepellet.es/ofertas');
     const ofertas = await response.json();
     return ofertas.map((oferta) => new ProductoModel(oferta));
 };
@@ -65,7 +65,7 @@ export const getOfertas = async () => {
 // Funcion para buscar productos, marcas y productores de la api
 export const buscar = async (searchValue) => {
     try {
-        const response = await fetch(`https://93.93.118.169/buscar?search=${searchValue}`);
+        const response = await fetch(`https://api.primepellet.es/buscar?search=${searchValue}`);
 
         if (!response.ok) {
             throw new Error('Error al buscar los productos, marcas y productores');
