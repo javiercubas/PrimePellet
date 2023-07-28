@@ -8,13 +8,16 @@ const Buscador = () => {
   const [isDefaultSearch, setIsDefaultSearch] = useState(true);
   const showResults = searchResults.length > 0;
 
-  useEffect(async () => {
-    buscar(searchValue).then((results) => {
-      setSearchResults(results);
-      setIsDefaultSearch(false);
+  useEffect(() => {
+    if (searchValue.length > 0) {
+      buscar(searchValue).then((results) => {
+        setSearchResults(results);
+        setIsDefaultSearch(false);
+      });
+    } else {
+      setSearchResults([]);
+      setIsDefaultSearch(true);
     }
-    );
-
   }, [searchValue]);
 
   return (
@@ -37,14 +40,18 @@ const Buscador = () => {
           <p>No se encontraron resultados. Escribe la palabra completa.</p>
         ) : (
           searchResults.map((result, index) => (
-            <a href={result ? (result.tipo == 'Marca' ? result.tipo.toLowerCase() : result.tipo == 'Productor' ? result.tipo.toLowerCase() : '') + '/' + result.nombre.toLowerCase().trim().replaceAll(' ', '-') : '#'} key={index} className='search-result-item'>
-              <img src={result.imagen} alt={result.nombre} />
+            <a
+              href={result.modelInstance ? (result.type === 'Marca' ? result.type.toLowerCase() : result.type === 'Productor' ? result.type.toLowerCase() : '') + '/' + result.modelInstance.nombre.toLowerCase().trim().replaceAll(' ', '-') : '#'}
+              key={index}
+              className='search-result-item'
+            >
+              <img src={result.modelInstance.imagen} alt={result.modelInstance.nombre} />
               <div className='search-content-right'>
-                <p>{result.nombre}</p>
-                <p className='search-type'>{result.tipo}</p> {/* Agregamos el tipo de resultado */}
+                <p>{result.modelInstance.nombre}</p>
+                <p className='search-type'>{result.type}</p>
               </div>
             </a>
-          ))
+          ))          
         )}
       </div>
     </div>
