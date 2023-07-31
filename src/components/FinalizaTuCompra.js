@@ -7,9 +7,8 @@ import axios from 'axios';
 import { addCliente } from '../modelos/ClienteModel';
 
 const Popup = (props) => {
-  const { nombre, imagen, precioPack, envio, precioFinal } = props;
+  const { nombre, imagen, precioPack, envio, precioFinal, onClose } = props;
 
-  const [isPopupVisible, setIsPopupVisible] = useState(true);
   const formRef = useRef();
 
   const handleSubmit = (e) => {
@@ -35,12 +34,8 @@ const Popup = (props) => {
   };
 
   const closePopup = () => {
-    setIsPopupVisible(false);
+    onClose();
   };
-
-  if (!isPopupVisible) {
-    return null; // Devuelve null para ocultar el componente si no es visible
-  }
 
   // Función para crear la sesión de pago y redireccionar al usuario a la pasarela de pago de Stripe
   const handleBuyNow = async (id) => {

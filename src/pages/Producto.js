@@ -810,6 +810,7 @@ const Producto = (props) => {
     // Función para mostrar el popup
     const handleShowPopup = () => {
         setShowPopup(true);
+        document.body.style.overflow = 'hidden';
     };
 
     return (
@@ -868,7 +869,10 @@ const Producto = (props) => {
                     <div dangerouslySetInnerHTML={{ __html: descripcion }} />
                 </div>
                 <button className="cta-producto-page" onClick={handleShowPopup}>COMPRAR AHORA</button>
-                {showPopup && <FinalizaTuCompra nombre={nombre} imagen={imagen} precioPack={precioPack} envio={envio} precioFinal={precioFinal} />}
+                {showPopup && <FinalizaTuCompra nombre={nombre} imagen={imagen} precioPack={precioPack} envio={envio} precioFinal={precioFinal} onClose={() => {
+                    setShowPopup(false);
+                    document.body.style.overflow = 'unset';
+                }} />}
             </div>
         </div>
     )

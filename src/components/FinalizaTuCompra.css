@@ -70,7 +70,7 @@
 .finaliza-input {
     height: 40px;
     border-radius: 5px;
-    border: 3px solid black;
+    border: 3px solid #1a98ff;
     padding: 5px;
     font-size: 12px;
     font-weight: 500;
@@ -82,7 +82,7 @@
 
 .finaliza-input:focus {
     outline: none;
-    border: 3px solid #1a98ff;
+    border: 3px solid green;
 }
 
 .finaliza-button{
@@ -99,4 +99,29 @@
     background-color: #1a98ff;
     color: white;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .finaliza-content {
+        width: 90%;
+        height: 100%;
+        overflow-y: auto;
+    }
+    .finaliza-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .finaliza-form-content {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .finaliza-input {
+        width: 100%;
+    }
+    .finaliza-button {
+        width: 100%;
+    }
 }
