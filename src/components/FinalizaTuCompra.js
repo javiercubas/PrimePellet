@@ -33,7 +33,7 @@ const Popup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (codigoPostal != e.target.cp.value && isValidCodigoPostal(e.target.cp.value)) {
+    if (codigoPostal != e.target.cp.value && isValidCodigoPostal(e.target.cp.value) && envio) {
       alert("El código postal no coincide con el introducido anteriormente");
     }
     else {
