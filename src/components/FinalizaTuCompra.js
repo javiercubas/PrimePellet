@@ -88,7 +88,7 @@ const Popup = (props) => {
       const sessionId = response.data.id;
 
       // Redireccionar al usuario a la pasarela de pago de Stripe
-      const stripe = window.Stripe('pk_test_51NY3CrIhiBCy1girW7wCZOD9ldfbNJnXu2yUXbMcfsrQT911aL8htoIzJodcdyw7GPp9M7e8hFALnnhqW56O0wX400YePDy6NV'); // Reemplaza 'TU_STRIPE_PUBLIC_KEY' con tu clave pública de Stripe
+      const stripe = window.Stripe('pk_live_51NY3CrIhiBCy1girKTmEw5gbob5qkerzsfG2Q5VjOFMRNND3UiWbPEbFtmyy6L17jb775TROh0ncc9A4x53HXzu000AjdmXMGm'); // Reemplaza 'TU_STRIPE_PUBLIC_KEY' con tu clave pública de Stripe
       const { error } = await stripe.redirectToCheckout({
         sessionId: sessionId,
       });
