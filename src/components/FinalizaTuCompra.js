@@ -28,8 +28,8 @@ const Popup = (props) => {
       precio: (envio ? precioFinal : precioPack.toFixed(2)),
       pagado: false,
     })
-      .then((cliente) => {
-        handleBuyNow(cliente.id);
+      .then((clienteId) => {
+        handleBuyNow(clienteId);
       })
   };
 
@@ -89,39 +89,39 @@ const Popup = (props) => {
           <div className='finaliza-wrap'>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Nombre</p>
-              <input className='finaliza-input' type="text" name="nombre" placeholder="Nombre" />
+              <input className='finaliza-input' type="text" name="nombre" placeholder="Nombre" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Apellidos</p>
-              <input className='finaliza-input' type="text" name="apellidos" placeholder="Apellidos" />
+              <input className='finaliza-input' type="text" name="apellidos" placeholder="Apellidos" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Email</p>
-              <input className='finaliza-input' type="email" name="email" placeholder="Email" />
+              <input className='finaliza-input' type="email" name="email" placeholder="Email" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Teléfono</p>
-              <input className='finaliza-input' type="tel" name="telefono" placeholder="Teléfono" />
+              <input className='finaliza-input' type="tel" name="telefono" placeholder="Teléfono" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Dirección</p>
-              <input className='finaliza-input' type="text" name="direccion" placeholder="Dirección" />
+              <input className='finaliza-input' type="text" name="direccion" placeholder="Dirección" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Código postal</p>
-              <input className='finaliza-input' type="text" name="cp" placeholder="Código postal" />
+              <input className='finaliza-input' type="text" name="cp" placeholder="Código postal" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Provincia</p>
-              <input className='finaliza-input' type="text" name="provincia" placeholder="Provincia" />
+              <input className='finaliza-input' type="text" name="provincia" placeholder="Provincia" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>Localidad</p>
-              <input className='finaliza-input' type="text" name="localidad" placeholder="Localidad" />
+              <input className='finaliza-input' type="text" name="localidad" placeholder="Localidad" required />
             </div>
             <div className="finaliza-form-content">
               <p className='finaliza-text'>DNI</p>
-              <input className='finaliza-input' type="text" name="dni" placeholder="DNI" />
+              <input className='finaliza-input' type="text" name="dni" placeholder="DNI" required />
             </div>
           </div>
           <button className='finaliza-button' type="submit">CONTINUAR</button>

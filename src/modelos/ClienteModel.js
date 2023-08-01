@@ -45,7 +45,9 @@ export const addCliente = async (cliente) => {
         }
 
         const clienteResponse = await response.json();
-        return new ClienteModel(clienteResponse);
+        
+        // Aquí se agrega el retorno del ID del cliente recién creado
+        return clienteResponse.insertId;
     } catch (error) {
         console.error(error);
         throw new Error('Error al añadir el cliente');
@@ -73,6 +75,6 @@ export const updateCliente = async (id, estado) => {
         console.error(error);
         throw new Error('Error al actualizar el pago del cliente');
     }
-};    
+};
 
 export default ClienteModel;  
