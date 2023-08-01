@@ -5,32 +5,56 @@ import { FaTimes } from 'react-icons/fa';
 import './FinalizaTuCompra.css'
 import axios from 'axios';
 import { addCliente } from '../modelos/ClienteModel';
+// Importamos las cookies
+const cookies = new Cookies();
 
 const Popup = (props) => {
   const { nombre, imagen, precioPack, envio, precioFinal, onClose } = props;
 
   const formRef = useRef();
 
+  // Recuperamos el codigo postal de las cookies
+  const [codigoPostal, setCodigoPostal] = useState(cookies.get('codigoPostal'));
+
+  // Función para comprobar si un valor es un número entero
+  const isInteger = (value) => {
+    return /^\d+$/.test(value);
+  };
+
+  const isValidCodigoPostal = (codigoPostal) => {
+    if (!isInteger(codigoPostal)) {
+      return false;
+    }
+
+    const parsedCodigoPostal = parseInt(codigoPostal, 10);
+    return parsedCodigoPostal >= 1000 && parsedCodigoPostal <= 50999;
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    addCliente({
-      nombre: e.target.nombre.value,
-      apellidos: e.target.apellidos.value,
-      correo: e.target.email.value,
-      telefono: e.target.telefono.value,
-      direccion: e.target.direccion.value,
-      codigoPostal: e.target.cp.value,
-      provincia: e.target.provincia.value,
-      localidad: e.target.localidad.value,
-      dni: e.target.dni.value,
-      producto: nombre,
-      precio: (envio ? precioFinal : precioPack.toFixed(2)),
-      pagado: false,
-    })
-      .then((clienteId) => {
-        handleBuyNow(clienteId);
+    if (codigoPostal != e.target.cp.value && isValidCodigoPostal(e.target.cp.value)) {
+      alert("El código postal no coincide con el introducido anteriormente");
+    }
+    else {
+      addCliente({
+        nombre: e.target.nombre.value,
+        apellidos: e.target.apellidos.value,
+        correo: e.target.email.value,
+        telefono: e.target.telefono.value,
+        direccion: e.target.direccion.value,
+        codigoPostal: e.target.cp.value,
+        provincia: e.target.provincia.value,
+        localidad: e.target.localidad.value,
+        dni: e.target.dni.value,
+        producto: nombre,
+        precio: (envio ? precioFinal : precioPack.toFixed(2)),
+        pagado: false,
       })
+        .then((clienteId) => {
+          handleBuyNow(clienteId);
+        })
+    }
   };
 
   const closePopup = () => {
