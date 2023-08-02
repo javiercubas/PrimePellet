@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CategoriasSection.css';
 import CategoriaSection from './CategoriaSection';
 import { getMarcas } from '../modelos/MarcaModel';
+import { getProductores } from '../modelos/ProductorModel';
 
 const Categoria = (props) => {
 
