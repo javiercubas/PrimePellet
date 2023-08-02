@@ -50,6 +50,7 @@ const Popup = (props) => {
         producto: nombre,
         precio: (envio ? precioFinal : precioPack.toFixed(2)),
         pagado: false,
+        envio: envio,
       })
         .then((clienteId) => {
           handleBuyNow(clienteId);

@@ -13,6 +13,7 @@ class ClienteModel {
         producto,
         precio,
         pagado,
+        envio,
     }) {
         this.id = id;
         this.nombre = nombre;
@@ -27,12 +28,13 @@ class ClienteModel {
         this.producto = producto;
         this.precio = precio;
         this.pagado = pagado;
+        this.envio = envio;
     }
 }
 
 export const addCliente = async (cliente) => {
     try {
-        const response = await fetch('https://api.primepellet.es/clientes?bbdd=2', {
+        const response = await fetch('https://api.primepellet.es/clientes?bbdd=1', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
