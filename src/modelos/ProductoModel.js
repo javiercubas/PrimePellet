@@ -41,6 +41,13 @@ export const getMarcaProductos = async (id, limit) => {
     return productos.map((producto) => new ProductoModel(producto));
 };
 
+// Función para obtener n productos de un productor de la api
+export const getProductorProductos = async (id, limit) => {
+    const response = await fetch(`https://api.primepellet.es/productores/${id}/productos?limit=${limit}&bbdd=1`);
+    const productos = await response.json();
+    return productos.map((producto) => new ProductoModel(producto));
+};
+
 // Función para consultar un producto de la api
 export const getProducto = async (id) => {
     const response = await fetch(`https://api.primepellet.es/productos/${id}?bbdd=1`);

@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './CategoriaPage.css';
 import Productos from '../components/Productos';
 import { getMarcaProductos } from '../modelos/ProductoModel';
+import { getProductorProductos } from '../modelos/ProductoModel';
 
 const CategoriaSection = (props) => {
-    const { titulo, descripcion, id } = props;
+    const { titulo, descripcion, id, isMarca } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
+        if(isMarca){
         getMarcaProductos(id).then((productos) => {
             setProductos(productos);
         });
-
+        }
+        else{
+            getProductorProductos(id).then((productos) => {
+                setProductos(productos);
+            });
+        }
     }, []);
 
     return (
