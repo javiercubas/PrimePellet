@@ -9,10 +9,16 @@ const Categoria = (props) => {
   const [marcas, setMarcas] = useState([]);
 
   useEffect(() => {
-    getMarcas().then((marcas) => {
-      setMarcas(marcas);
-    });
-
+    if(isMarcas){
+      getMarcas().then((marcas) => {
+        setMarcas(marcas);
+      });
+    }
+    else{
+      getProductores().then((productores) => {
+        setMarcas(productores);
+      });
+    }
   }, []);
 
   return (
