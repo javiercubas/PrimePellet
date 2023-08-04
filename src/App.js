@@ -5,6 +5,8 @@ import Popup from './components/Popup';
 import Cookies from 'universal-cookie';
 import Footer from './components/Footer';
 import Router from './Router';
+import ReactGA from 'react-ga';
+import { useEffect } from 'react';
 
 function App() {
 

@@ -4,7 +4,7 @@ import './Card.css'
 const Card = (props) => {
   const { image, name, price } = props;
   return (
-    <a href={name.toLowerCase().trim().replaceAll(" ", "-")} className="card-box">
+    <a href={"/"+name.toLowerCase().trim().replaceAll(" ", "-")} className="card-box">
       <div className="foto-card" style={{ backgroundImage: `url(${image})` }} />
       <div className="inside-box">
         <h3 className="title-card">{name}</h3>
