@@ -30,7 +30,7 @@ const Header = () => {
             <li onClick={() => setIsMenuOpen(false)}><a href="/productos">PRODUCTOS</a></li>
             <li onClick={() => setIsMenuOpen(false)}><a href="/productores">PRODUCTORES</a></li>
             <li onClick={() => setIsMenuOpen(false)}><a href="/marcas">MARCAS</a></li>
-            <li onClick={() => setIsMenuOpen(false)}><a href="/blog">BLOG</a></li>
+            <li onClick={() => setIsMenuOpen(false)}><a href="/partners">PARTNERS</a></li>
             <li onClick={() => setIsMenuOpen(false)}><a href="/sobre-nosotros">SOBRE NOSOTROS</a></li>
           </ul>
         </div>

@@ -5,7 +5,7 @@ import { getMarcaProductos } from '../modelos/ProductoModel';
 import { getProductorProductos } from '../modelos/ProductoModel';
 
 const CategoriaSection = (props) => {
-    const { id, isMarca, titulo, descripcion } = props;
+    const { id, isMarca, isPartner, titulo, descripcion, imagen } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const CategoriaSection = (props) => {
                 setProductos(productos);
             });
         }
-        else {
+        else if (!isPartner) {
             getProductorProductos(id, 4).then((productos) => {
                 setProductos(productos);
             });
@@ -24,13 +24,14 @@ const CategoriaSection = (props) => {
     return (
         <div className="categoria-container">
             <h2 className="categoria-titulo">{titulo}</h2>
+            {isPartner && <img src={imagen} className="categoria-imagen" />}
             <div className="categoria-content">
-                <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`}>
+                <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`} style={{ width: isPartner ? '100%' : '35%' }}>
                     <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-descripcion' />
-                    {window.innerWidth >= 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+                    {!isPartner && window.innerWidth >= 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
                 </div>
-                <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />
-                {window.innerWidth < 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+                {!isPartner && <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />}
+                {!isPartner && window.innerWidth < 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
             </div>
         </div>
     );

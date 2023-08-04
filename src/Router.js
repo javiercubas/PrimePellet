@@ -40,6 +40,7 @@ const Router = () => {
             <Route path="/productos" element={<ProductosPage />} />
             <Route path="/productores" element={<CategoriasSection isMarcas={false} />} />
             <Route path="/marcas" element={<CategoriasSection isMarcas={true} />} />
+            <Route path="/partners" element={<CategoriasSection isMarcas={false} isPartners={true} />} />
             <Route path="/sobre-nosotros" element={<SobreNosotros />} />
             <Route path="/compra-exitosa" element={<CompraExitosa />} />
             <Route path="/sitemap.xml" element={<SitemapViewer />} />
