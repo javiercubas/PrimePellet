@@ -30,6 +30,12 @@ const Popup = (props) => {
     return parsedCodigoPostal >= 1000 && parsedCodigoPostal <= 50999;
   };
 
+  const gtag_report_conversion = () => {
+    window.gtag('event', 'conversion', {
+      'send_to': 'AW-11276718525/g875CIfY3cUYEL2jlIEq',
+      'transaction_id': '',
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,6 +59,7 @@ const Popup = (props) => {
         envio: envio,
       })
         .then((clienteId) => {
+          gtag_report_conversion();
           handleBuyNow(clienteId);
         })
     }
