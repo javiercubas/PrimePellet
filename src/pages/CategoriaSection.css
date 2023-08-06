@@ -90,7 +90,7 @@
     }
 
     .categoria-left {
-        width: 90%;
+        width: 90%!important;
         align-items: center;
         gap: 20px;
     }
