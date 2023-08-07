@@ -1,9 +1,10 @@
 class PartnerModel {
-    constructor({ id, nombre, descripcion, imagen }) {
+    constructor({ id, nombre, descripcion, imagen, url }) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagen = imagen;
+        this.url = url;
     }
 }
 
