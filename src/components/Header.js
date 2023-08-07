@@ -42,6 +42,21 @@ const Header = () => {
     });
   }, [isMenuOpen]);
 
+  const handleSubmenuClick = (submenuState, setSubmenuState) => {
+    if (window.innerWidth <= 1100) {
+      setSubmenuState(!submenuState);
+    }
+  };
+
+  const handleMenuClick = () => {
+    if (window.innerWidth <= 1100) {
+      setIsMenuOpen(!isMenuOpen);
+    }
+  };
+
+  // Determina el elemento de título (a o div) según el ancho de la pantalla
+  const TitleElement = window.innerWidth <= 1100 ? "div" : "a";
+
   return (
     <nav className={`nav ${isMenuOpen ? "menu-open" : ""}`}>
       <div className="logo">
@@ -50,16 +65,17 @@ const Header = () => {
       <div className="navAll">
         <div className="movil-title">
           <h2>Menu principal</h2>
-          <FaTimes size={32} color="var(--logo)" onClick={() => setIsMenuOpen(!isMenuOpen)} />
+          <FaTimes size={32} color="var(--logo)" onClick={handleMenuClick} />
         </div>
         <div className="navLinks">
           <ul>
             <li><a href="/">INICIO</a></li>
             <li
+              onClick={() => handleSubmenuClick(isSubProductosOpen, setIsSubProductosOpen)}
               onMouseEnter={() => setIsSubProductosOpen(true)}
               onMouseLeave={() => setIsSubProductosOpen(false)}
             >
-              <a href="/productos">PRODUCTOS</a>
+              <TitleElement href="/productos">PRODUCTOS</TitleElement>
               {isSubProductosOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubProductosOpen(true)} onMouseLeave={() => setIsSubProductosOpen(false)}>
                   {tiposProductos.map(tipoProducto => (
@@ -69,10 +85,11 @@ const Header = () => {
               )}
             </li>
             <li
+              onClick={() => handleSubmenuClick(isSubProductoresOpen, setIsSubProductoresOpen)}
               onMouseEnter={() => setIsSubProductoresOpen(true)}
               onMouseLeave={() => setIsSubProductoresOpen(false)}
             >
-              <a href="/productores">PRODUCTORES</a>
+              <TitleElement href="/productores">PRODUCTORES</TitleElement>
               {isSubProductoresOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubProductoresOpen(true)} onMouseLeave={() => setIsSubProductoresOpen(false)}>
                   {productores.map(productor => (
@@ -82,10 +99,11 @@ const Header = () => {
               )}
             </li>
             <li
+              onClick={() => handleSubmenuClick(isSubMarcasOpen, setIsSubMarcasOpen)}
               onMouseEnter={() => setIsSubMarcasOpen(true)}
               onMouseLeave={() => setIsSubMarcasOpen(false)}
             >
-              <a href="/marcas">MARCAS</a>
+              <TitleElement href="/marcas">MARCAS</TitleElement>
               {isSubMarcasOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubMarcasOpen(true)} onMouseLeave={() => setIsSubMarcasOpen(false)}>
                   {marcas.map(marca => (
@@ -95,10 +113,11 @@ const Header = () => {
               )}
             </li>
             <li
+              onClick={() => handleSubmenuClick(isSubPartnersOpen, setIsSubPartnersOpen)}
               onMouseEnter={() => setIsSubPartnersOpen(true)}
               onMouseLeave={() => setIsSubPartnersOpen(false)}
             >
-              <a href="/partners">PARTNERS</a>
+              <TitleElement href="/partners">PARTNERS</TitleElement>
               {isSubPartnersOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubPartnersOpen(true)} onMouseLeave={() => setIsSubPartnersOpen(false)}>
                   {partners.map(partner => (
@@ -112,7 +131,7 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+      <div className="hamburger" onClick={handleMenuClick}>
         <AiOutlineMenu size={32} color="white" />
       </div>
     </nav>
