@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 }
 
@@ -22,6 +22,8 @@
     color: #1a98ff;
     text-transform: uppercase;
     position: relative;
+    width: 100%;
+    text-align: left;
 }
 
 .categoria-titulo::after {
@@ -71,6 +73,11 @@
 
 .categoria-button:hover {
     background-color: #1a98ff;
+}
+
+.categoria-imagen{
+    max-width: 40%;
+    object-fit: contain;
 }
 
 @media screen and (max-width: 768px) {

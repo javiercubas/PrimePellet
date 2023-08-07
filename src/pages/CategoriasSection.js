@@ -39,6 +39,7 @@ const Categoria = (props) => {
           titulo={marca.nombre}
           descripcion={marca.descripcion}
           imagen={marca.imagen}
+          url={marca.url}
         />
       ))}
     </div>

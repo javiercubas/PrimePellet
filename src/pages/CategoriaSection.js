@@ -5,7 +5,7 @@ import { getMarcaProductos } from '../modelos/ProductoModel';
 import { getProductorProductos } from '../modelos/ProductoModel';
 
 const CategoriaSection = (props) => {
-    const { id, isMarca, isPartner, titulo, descripcion, imagen } = props;
+    const { id, isMarca, isPartner, titulo, descripcion, imagen, url } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
@@ -22,18 +22,32 @@ const CategoriaSection = (props) => {
     }, []);
 
     return (
-        <div className="categoria-container">
-            <h2 className="categoria-titulo">{titulo}</h2>
-            {isPartner && <img src={imagen} className="categoria-imagen" />}
-            <div className="categoria-content">
-                <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`} style={{ width: isPartner ? '100%' : '35%' }}>
-                    <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-descripcion' />
-                    {!isPartner && window.innerWidth >= 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+        isPartner && url != null ?
+            <a href={url} className="categoria-container">
+                <h2 className="categoria-titulo">{titulo}</h2>
+                {isPartner && <img src={imagen} className="categoria-imagen" />}
+                <div className="categoria-content">
+                    <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`} style={{ width: isPartner ? '100%' : '35%' }}>
+                        <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-descripcion' />
+                        {!isPartner && window.innerWidth >= 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+                    </div>
+                    {!isPartner && <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />}
+                    {!isPartner && window.innerWidth < 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
                 </div>
-                {!isPartner && <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />}
-                {!isPartner && window.innerWidth < 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+            </a>
+            :
+            <div className="categoria-container">
+                <h2 className="categoria-titulo">{titulo}</h2>
+                {isPartner && <img src={imagen} className="categoria-imagen" />}
+                <div className="categoria-content">
+                    <div className={`categoria-left ${window.innerWidth <= 768 ? 'mobile-view' : ''}`} style={{ width: isPartner ? '100%' : '35%' }}>
+                        <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-descripcion' />
+                        {!isPartner && window.innerWidth >= 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+                    </div>
+                    {!isPartner && <Productos productos={productos} width="60%" grid="repeat(2, 1fr)" />}
+                    {!isPartner && window.innerWidth < 768 && <a href={(isMarca ? '/marca/' : '/productor/') + titulo.toLowerCase().trim().replaceAll(' ', '-')} className="categoria-button">Más información</a>}
+                </div>
             </div>
-        </div>
     );
 }
 
