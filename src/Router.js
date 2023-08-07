@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { getProductos } from './modelos/ProductoModel';
 import { getProductores } from './modelos/ProductorModel';
 import { getMarcas } from './modelos/MarcaModel';
+import { getTiposProductos } from './modelos/TipoProductoModel'
 import CompraExitosa from './pages/CompraExitosa'
 import SitemapViewer from './pages/SitemapViewer'
 
@@ -18,6 +19,7 @@ const Router = () => {
     const [productos, setProductos] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [productores, setProductores] = useState([]);
+    const [tiposProductos, setTiposProductos] = useState([]);
 
     useEffect(() => {
         getProductos().then((productos) => {
@@ -30,6 +32,10 @@ const Router = () => {
 
         getProductores().then((productores) => {
             setProductores(productores);
+        });
+
+        getTiposProductos().then((tiposProductos) => {
+            setTiposProductos(tiposProductos);
         });
 
     }, []);
@@ -59,7 +65,8 @@ const Router = () => {
                         titulo={marca.nombre}
                         id={marca.id}
                         descripcion={marca.descripcion}
-                        isMarca={true} />}
+                        isMarca={true}
+                    />}
                 />
             ))}
             {productores.map(productor => (
@@ -70,9 +77,20 @@ const Router = () => {
                         titulo={productor.nombre}
                         id={productor.id}
                         descripcion={productor.descripcion}
-                        isMarca={false} />}
+                        isProductor={true} />}
                 />
             ))}
+
+            {tiposProductos.map(tipoProducto => (
+                <Route
+                    key={tipoProducto.id}
+                    path={`/productos/${tipoProducto.nombre.toLowerCase().trim().replaceAll(' ', '-')}`} // Cambiar la ruta como desees
+                    element={<CategoriaPage key={tipoProducto.uid}
+                        titulo={tipoProducto.nombre}
+                        id={tipoProducto.id} />}
+                />
+            ))}
+
         </Routes>
     )
 }

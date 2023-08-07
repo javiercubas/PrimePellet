@@ -5,6 +5,7 @@ import "./Header.css";
 import { getProductores } from "../modelos/ProductorModel";
 import { getMarcas } from "../modelos/MarcaModel";
 import { getPartners } from "../modelos/PartnerModel";
+import { getTiposProductos } from "../modelos/TipoProductoModel";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,6 +16,7 @@ const Header = () => {
   const [marcas, setMarcas] = useState([]);
   const [productores, setProductores] = useState([]);
   const [partners, setPartners] = useState([]);
+  const [tiposProductos, setTiposProductos] = useState([]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -33,6 +35,10 @@ const Header = () => {
 
     getPartners().then((partners) => {
       setPartners(partners);
+    });
+
+    getTiposProductos().then((tiposProductos) => {
+      setTiposProductos(tiposProductos);
     });
   }, [isMenuOpen]);
 
@@ -56,11 +62,9 @@ const Header = () => {
               <a href="/productos">PRODUCTOS</a>
               {isSubProductosOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubProductosOpen(true)} onMouseLeave={() => setIsSubProductosOpen(false)}>
-                  <li><a href="/productos/pellet">Pellet</a></li>
-                  <li><a href="/productos/hueso">Hueso</a></li>
-                  <li><a href="/productos/estufas">Estufas</a></li>
-                  <li><a href="/productos/calderas">Calderas</a></li>
-                  <li><a href="/productos/otros">Otros</a></li>
+                  {tiposProductos.map(tipoProducto => (
+                    <li key={tipoProducto.id}><a href={`/productos/${tipoProducto.nombre.toLowerCase().trim().replaceAll(' ', '-')}`}>{tipoProducto.nombre}</a></li>
+                  ))}
                 </ul>
               )}
             </li>

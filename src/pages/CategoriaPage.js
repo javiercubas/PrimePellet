@@ -3,23 +3,31 @@ import './CategoriaPage.css';
 import Productos from '../components/Productos';
 import { getMarcaProductos } from '../modelos/ProductoModel';
 import { getProductorProductos } from '../modelos/ProductoModel';
+import { getTipoProductoProductos } from '../modelos/TipoProductoModel';
 
 const CategoriaSection = (props) => {
-    const { titulo, descripcion, id, isMarca } = props;
+    const { titulo, descripcion, id, isMarca, isProductor } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        if(isMarca){
-        getMarcaProductos(id).then((productos) => {
-            setProductos(productos);
-        });
+        if (isMarca) {
+            getMarcaProductos(id).then((productos) => {
+                setProductos(productos);
+            });
         }
-        else{
+        else if (isProductor) {
             getProductorProductos(id).then((productos) => {
                 setProductos(productos);
             });
         }
+        else {
+            getTipoProductoProductos(id).then((productos) => {
+                setProductos(productos);
+            });
+        }
     }, []);
+
+    console.log(id);
 
     return (
         <div className="categorias-section">
