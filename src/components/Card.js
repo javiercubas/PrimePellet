@@ -2,13 +2,13 @@ import React from 'react'
 import './Card.css'
 
 const Card = (props) => {
-  const { image, name, price } = props;
+  const { image, name, price, url, pack } = props;
   return (
-    <a href={"/"+name.toLowerCase().trim().replaceAll(" ", "-")} className="card-box">
+    <a href={url} className="card-box">
       <div className="foto-card" style={{ backgroundImage: `url(${image})` }} />
       <div className="inside-box">
         <h3 className="title-card">{name}</h3>
-        <div className="precio-card">{price} €/ud (IVA INCLUIDO)</div>
+        <div className="precio-card">{price} €{pack == 1? '' : '/ud'} (IVA INCLUIDO)</div>
       </div>
       <button className="cta-card">COMPRA AHORA</button>
     </a>
