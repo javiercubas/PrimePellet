@@ -79,7 +79,7 @@ const Header = () => {
               {isSubProductosOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubProductosOpen(true)} onMouseLeave={() => setIsSubProductosOpen(false)}>
                   {tiposProductos.map(tipoProducto => (
-                    <li key={tipoProducto.id}><a href={`/productos/${tipoProducto.nombre.toLowerCase().trim().replaceAll(' ', '-')}`}>{tipoProducto.nombre}</a></li>
+                    <li key={tipoProducto.id}><a href={tipoProducto.url}>{tipoProducto.nombre}</a></li>
                   ))}
                 </ul>
               )}

@@ -3,7 +3,7 @@ import './Productos.css';
 import { useState, useEffect } from 'react';
 
 const Productos = (props) => {
-    const { titulo, productos, width, grid } = props;
+    const { titulo, productos, width, grid, tipo } = props;
 
     // Obtenemos la fecha actual
     const fecha = new Date();

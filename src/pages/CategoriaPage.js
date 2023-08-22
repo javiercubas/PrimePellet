@@ -27,8 +27,6 @@ const CategoriaSection = (props) => {
         }
     }, []);
 
-    console.log(id);
-
     return (
         <div className="categorias-section">
             <div className="categoria-page-container">
