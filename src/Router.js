@@ -82,6 +82,7 @@ const Router = () => {
             ))}
 
             {tiposProductos.map(tipoProducto => (
+                console.log(tipoProducto.url),
                 <Route
                     key={tipoProducto.id}
                     path={tipoProducto.url}
