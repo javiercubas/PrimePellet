@@ -121,7 +121,7 @@ const Header = () => {
               {isSubPartnersOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubPartnersOpen(true)} onMouseLeave={() => setIsSubPartnersOpen(false)}>
                   {partners.map(partner => (
-                    <li key={partner.id}><a href={`/partner/${partner.nombre.toLowerCase().trim().replaceAll(' ', '-')}`}>{partner.nombre}</a></li>
+                    <li key={partner.id}><a href={partner.url}>{partner.nombre}</a></li>
                   ))}
                 </ul>
               )}
