@@ -8,7 +8,7 @@ const Card = (props) => {
       <div className="foto-card" style={{ backgroundImage: `url(${image})` }} />
       <div className="inside-box">
         <h3 className="title-card">{name}</h3>
-        <div className="precio-card">{price} €{pack == 1? '' : '/ud'} (IVA INCLUIDO)</div>
+        <div className="precio-card">{price} €{pack == 1? '+ IVA' : '/ud (IVA INCLUIDO)'}</div>
       </div>
       <button className="cta-card">COMPRA AHORA</button>
     </a>
