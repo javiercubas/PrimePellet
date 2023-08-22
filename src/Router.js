@@ -82,11 +82,10 @@ const Router = () => {
             ))}
 
             {tiposProductos.map(tipoProducto => (
-                console.log(tipoProducto.url),
                 <Route
                     key={tipoProducto.id}
-                    path={tipoProducto.url}
-                    element={<CategoriaPage key={tipoProducto.id}
+                    path={`/productos/${tipoProducto.nombre.toLowerCase().trim().replaceAll(' ', '-')}`} // Cambiar la ruta como desees
+                    element={<CategoriaPage key={tipoProducto.uid}
                         titulo={tipoProducto.nombre}
                         id={tipoProducto.id} />}
                 />
