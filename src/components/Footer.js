@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Footer.css'
 import ThermoRossiSVG from './thermorossisvg'
+import PromoPopUp from './PromoPopUp'
 
 const Footer = () => {
 
+    const [showPopup, setShowPopup] = useState(false); // Estado para controlar si se muestra el popup
+
+    // Función para mostrar el popup
+    const handleShowPopup = () => {
+        setShowPopup(true);
+        document.body.style.overflow = 'hidden';
+    };
+
     return (
         <div className="footer-container">
-            <div className="sponsors-content">
+            {showPopup && <PromoPopUp onClose={() => {
+                setShowPopup(false);
+                document.body.style.overflow = 'unset';
+            }} />}
+            <div className="sponsors-content" onClick={handleShowPopup}>
                 <ThermoRossiSVG />
             </div>
 

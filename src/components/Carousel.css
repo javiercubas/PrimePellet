@@ -1,0 +1,76 @@
+/* Carousel Container */
+.carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Individual Carousel Slide */
+.carousel-slide {
+    display: none;
+    width: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+}
+
+/* Active Slide */
+.carousel-slide.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-prev,
+.carousel-next {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+/* Carousel Dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 5px;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background-color: #333;
+}
+
+/* Carousel Navigation Arrows */
+.carousel-arrows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 20px;
+}
