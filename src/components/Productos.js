@@ -44,7 +44,7 @@ const Productos = (props) => {
                         image={producto.imagen}
                         price={producto.precio}
                         url={producto.url}
-                        pack={producto.pack}
+                        iva={producto.iva}
                     />
                 ))}
             </div>
