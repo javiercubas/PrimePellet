@@ -7,7 +7,7 @@ const PromoPopUp = (props) => {
   const { onClose } = props;
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const images = ['../../assets/promo-thermorossi.png', '../../assets/promo-thermorossi-2.png']; // Reemplaza con tus imágenes
+  const images = ['../../assets/estufa-de-pellet-pop-negra.png', '../../assets/estufa-de-pellet-slimquadro-blanca.png', '../../assets/promo-thermorossi-3.png']; // Reemplaza con tus imágenes
 
   const closePopup = () => {
     onClose();
@@ -28,19 +28,20 @@ const PromoPopUp = (props) => {
         <FaTimes className="finaliza-close-icon" onClick={closePopup} style={{ zIndex: 1000 }}/>
         <div className="carousel">
           {images.map((image, index) => (
-            <div
+            <a
               key={index}
+                href={`https://primepellet.es/${index === 0 ? 'estufa-de-pellet-pop-negra' : 'estufa-de-pellet-slimquadro-blanca'}`}
               className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
             >
               <img src={image} alt={`Imagen ${index}`} />
-            </div>
+            </a>
           ))}
         </div>
         <div className="carousel-arrows">
-          <button className="carousel-arrow prev-arrow" onClick={showPrevSlide}>
+          <button className="carousel-arrow prev-arrow" onClick={showPrevSlide} style={{ borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
             <FaArrowLeft />
           </button>
-          <button className="carousel-arrow next-arrow" onClick={showNextSlide}>
+          <button className="carousel-arrow next-arrow" onClick={showNextSlide} style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}>
             <FaArrowRight />
           </button>
         </div>
