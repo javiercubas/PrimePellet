@@ -4,8 +4,8 @@ import CategoriaSection from './CategoriaSection';
 import { getMarcas } from '../modelos/MarcaModel';
 import { getProductores } from '../modelos/ProductorModel';
 import { getPartners } from '../modelos/PartnerModel';
-import PromoPopUp from './PromoPopUp';
-import ThermoRossiSVG from './thermorossi';
+import PromoPopUp from '../components/PromoPopUp'
+import ThermoRossiSVG from '../components/thermorossi'
 
 const Categoria = (props) => {
 
