@@ -128,13 +128,15 @@ ul li a:focus {
     text-align: center;
 }
 
-.submenu a {
+.submenu a, .submenu div {
     color: white;
     text-decoration: none;
     font-size: 1.1vw;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.submenu a:hover {
+.submenu a:hover, .submenu div:hover {
     color: #1a98ff;
 }
 
