@@ -4,10 +4,14 @@ import './FinalizaTuCompra.css';
 import './Carousel.css'; // Asegúrate de tener los estilos del carrusel
 
 const PromoPopUp = (props) => {
-  const { onClose } = props;
+  const { onClose, type } = props;
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const images = ['../../assets/estufa-de-pellet-pop-negra.png', '../../assets/estufa-de-pellet-slimquadro-blanca.png', '../../assets/promo-thermorossi-3.png']; // Reemplaza con tus imágenes
+  let images = ['../../assets/estufa-de-pellet-pop-negra.png', '../../assets/estufa-de-pellet-slimquadro-blanca.png', type === 1 ? '../../assets/promo-thermorossi-3.png' : type === 3 ? '../../assets/promo-thermorossi-estufas' : '../../assets/promo-thermorossi-calderas']; // Reemplaza con tus imágenes
+
+  if (type == 1 || type == 4) {
+    images = images.slice(2, 3);
+  }
 
   const closePopup = () => {
     onClose();
@@ -25,12 +29,12 @@ const PromoPopUp = (props) => {
     <div id="popup-container" className="popup-container">
       <div className="popup-background"></div>
       <div className="finaliza-content" style={{ padding: 0 }}>
-        <FaTimes className="finaliza-close-icon" onClick={closePopup} style={{ zIndex: 1000 }}/>
+        <FaTimes className="finaliza-close-icon" onClick={closePopup} style={{ zIndex: 1000 }} />
         <div className="carousel">
           {images.map((image, index) => (
             <a
               key={index}
-                href={`https://primepellet.es/${index === 0 ? 'estufa-de-pellet-pop-negra' : 'estufa-de-pellet-slimquadro-blanca'}`}
+              href={`https://primepellet.es/${index === 0 ? 'estufa-de-pellet-pop-negra' : 'estufa-de-pellet-slimquadro-blanca'}`}
               className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
             >
               <img src={image} alt={`Imagen ${index}`} />
