@@ -34,7 +34,7 @@ const PromoPopUp = (props) => {
           {images.map((image, index) => (
             <a
               key={index}
-              href={`https://primepellet.es/${index === 0 ? 'estufa-de-pellet-pop-negra' : 'estufa-de-pellet-slimquadro-blanca'}`}
+              href={index===2 ? 'tel:+34623190390' : `https://primepellet.es/${index === 0 ? 'estufa-de-pellet-pop-negra' : 'estufa-de-pellet-slimquadro-blanca'}`}
               className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
             >
               <img src={image} alt={`Imagen ${index}`} />
