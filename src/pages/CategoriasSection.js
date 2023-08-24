@@ -4,6 +4,8 @@ import CategoriaSection from './CategoriaSection';
 import { getMarcas } from '../modelos/MarcaModel';
 import { getProductores } from '../modelos/ProductorModel';
 import { getPartners } from '../modelos/PartnerModel';
+import PromoPopUp from './PromoPopUp';
+import ThermoRossiSVG from './thermorossi';
 
 const Categoria = (props) => {
 
@@ -29,20 +31,38 @@ const Categoria = (props) => {
     }
   }, []);
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleShowPopup = () => {
+    setShowPopup(true);
+    document.body.style.overflow = 'hidden';
+  }
+
   return (
-    <div className="categorias-section">
-      {marcas.map(marca => (
-        <CategoriaSection
-          id={marca.id}
-          isMarca={isMarcas}
-          isPartner={isPartners}
-          titulo={marca.nombre}
-          descripcion={marca.descripcion}
-          imagen={marca.imagen}
-          url={marca.url}
-        />
-      ))}
-    </div>
+    <>
+      <div className="categorias-section">
+        {marcas.map(marca => (
+          <CategoriaSection
+            id={marca.id}
+            isMarca={isMarcas}
+            isPartner={isPartners}
+            titulo={marca.nombre}
+            descripcion={marca.descripcion}
+            imagen={marca.imagen}
+            url={marca.url}
+          />
+        ))}
+      </div>
+      <div className="sponsors-content" onClick={handleShowPopup}>
+        <ThermoRossiSVG />
+      </div>
+      {
+        showPopup && <PromoPopUp onClose={() => {
+          setShowPopup(false);
+          document.body.style.overflow = 'unset';
+        }} type={1} />
+      }
+    </>
   );
 }
 
