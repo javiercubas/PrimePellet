@@ -9,7 +9,7 @@ const PromoPopUp = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   let images = ['../../assets/estufa-de-pellet-pop-negra.png', '../../assets/estufa-de-pellet-slimquadro-blanca.png', type === 1 ? '../../assets/promo-thermorossi-3.png' : type === 3 ? '../../assets/promo-thermorossi-estufas.png' : '../../assets/promo-thermorossi-calderas.png']; // Reemplaza con tus imágenes
 
-  if (type == 1 || type == 4) {
+  if (type == 1 || type==2 || type == 4 || type == 5) {
     images = images.slice(2, 3);
   }
 
