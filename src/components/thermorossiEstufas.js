@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ThermorossiSVG = () => {
+const ThermorossiEstufas = () => {
     return (
         <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 508">
             <title>Thermorossi</title>
@@ -9,4 +9,4 @@ const ThermorossiSVG = () => {
     )
 }
 
-export default ThermorossiSVG
+export default ThermorossiEstufas

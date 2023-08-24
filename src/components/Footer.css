@@ -14,7 +14,7 @@
 }
 
 .sponsors-content {
-    width: 90%;
+    width: 30%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,14 +22,14 @@
     margin-top: 3vh;
 }
 
-.footer-container .sponsors-content svg {
+.sponsors-content svg {
     width: 400px;
     fill: #4a4a4a;
     cursor: pointer;
 }
 
 /* Estilos para el SVG cuando está en hover */
-.footer-container .sponsors-content svg:hover {
+.sponsors-content svg:hover {
     fill: #008000;
 }
 

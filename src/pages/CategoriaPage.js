@@ -4,9 +4,12 @@ import Productos from '../components/Productos';
 import { getMarcaProductos } from '../modelos/ProductoModel';
 import { getProductorProductos } from '../modelos/ProductoModel';
 import { getTipoProductoProductos } from '../modelos/TipoProductoModel';
+import PromoPopUp from '../components/PromoPopUp';
+import ThermoRossiCalderas from '../components/thermorossiCalderas';
+import ThermoRossiEstufas from '../components/thermorossiEstufas' ;
 
 const CategoriaSection = (props) => {
-    const { titulo, descripcion, id, isMarca, isProductor } = props;
+    const { titulo, descripcion, id, isMarca, isProductor, type } = props;
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
@@ -27,12 +30,26 @@ const CategoriaSection = (props) => {
         }
     }, []);
 
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleShowPopup = () => {
+        setShowPopup(true);
+        document.body.style.overflow = 'hidden';
+    }
+
     return (
         <div className="categorias-section">
             <div className="categoria-page-container">
                 <h2 className="categoria-page-titulo">{titulo}</h2>
                 <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-page-descripcion' />
                 <Productos productos={productos} width="100%" grid="repeat(4, 1fr)" />
+                <div className="sponsors-content" onClick={handleShowPopup}>
+                    {type === 3 ? <ThermoRossiEstufas /> : <ThermoRossiCalderas />}
+                </div>
+                {showPopup && <PromoPopUp onClose={() => {
+                    setShowPopup(false);
+                    document.body.style.overflow = 'unset';
+                }} type={type} />}
             </div>
         </div>
     );
