@@ -6,6 +6,7 @@ import { getProductores } from "../modelos/ProductorModel";
 import { getMarcas } from "../modelos/MarcaModel";
 import { getPartners } from "../modelos/PartnerModel";
 import { getTiposProductos } from "../modelos/TipoProductoModel";
+import PromoPopUp from "./PromoPopUp";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,6 +57,13 @@ const Header = () => {
 
   // Determina el elemento de título (a o div) según el ancho de la pantalla
   const TitleElement = window.innerWidth <= 1100 ? "div" : "a";
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleShowPopup = () => {
+    setShowPopup(true);
+    document.body.style.overflow = 'hidden';
+  }
 
   return (
     <nav className={`nav ${isMenuOpen ? "menu-open" : ""}`}>
@@ -121,7 +129,9 @@ const Header = () => {
               {isSubPartnersOpen && (
                 <ul className="submenu" onMouseEnter={() => setIsSubPartnersOpen(true)} onMouseLeave={() => setIsSubPartnersOpen(false)}>
                   {partners.map(partner => (
-                    <li key={partner.id}><a href={partner.url}>{partner.nombre}</a></li>
+                    <li key={partner.id}>
+                      {partner.id == 1 ? <div onClick={handleShowPopup}>{partner.nombre}</div> : <a href={partner.url}>{partner.nombre}</a>}
+                    </li>
                   ))}
                 </ul>
               )}
@@ -130,6 +140,11 @@ const Header = () => {
           </ul>
         </div>
       </div>
+
+      {showPopup && <PromoPopUp onClose={() => {
+        setShowPopup(false);
+        document.body.style.overflow = 'unset';
+      }} type={1} />}
 
       <div className="hamburger" onClick={handleMenuClick}>
         <AiOutlineMenu size={32} color="white" />
