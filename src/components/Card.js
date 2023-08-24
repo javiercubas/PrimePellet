@@ -4,8 +4,8 @@ import './Card.css'
 const Card = (props) => {
   const { image, name, price, url, pack, iva } = props;
 
-  // Limitar el título a 75 caracteres y agregar "..." si es más largo
-  const limitedTitle = name.length > 50 ? name.substring(0, 72) + '...' : name;
+  // Limitar el título a 50 caracteres y agregar "..." si es más largo
+  const limitedTitle = name.length > 50 ? name.substring(0, 50) + "..." : name;
 
   return (
     <a href={url} className="card-box">
