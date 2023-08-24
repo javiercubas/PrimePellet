@@ -66,6 +66,7 @@ const Header = () => {
   }
 
   return (
+    <>
     <nav className={`nav ${isMenuOpen ? "menu-open" : ""}`}>
       <div className="logo">
         <a href="/"></a>
@@ -141,15 +142,16 @@ const Header = () => {
         </div>
       </div>
 
-      {showPopup && <PromoPopUp onClose={() => {
-        setShowPopup(false);
-        document.body.style.overflow = 'unset';
-      }} type={1} />}
-
       <div className="hamburger" onClick={handleMenuClick}>
         <AiOutlineMenu size={32} color="white" />
       </div>
     </nav>
+
+{showPopup && <PromoPopUp onClose={() => {
+  setShowPopup(false);
+  document.body.style.overflow = 'unset';
+}} type={1} />}
+</>
   );
 };
 
