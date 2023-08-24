@@ -65,5 +65,4 @@ const Categoria = (props) => {
     </>
   );
 }
-
 export default Categoria;
