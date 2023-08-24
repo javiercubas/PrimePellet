@@ -7,6 +7,7 @@ import { getTipoProductoProductos } from '../modelos/TipoProductoModel';
 import PromoPopUp from '../components/PromoPopUp';
 import ThermoRossiCalderas from '../components/thermorossiCalderas';
 import ThermoRossiEstufas from '../components/thermorossiEstufas';
+import ThermoRossiSVG from '../components/thermorossi';
 
 const CategoriaSection = (props) => {
     const { titulo, descripcion, id, isMarca, isProductor, type } = props;
@@ -45,7 +46,7 @@ const CategoriaSection = (props) => {
                 <Productos productos={productos} width="100%" grid="repeat(4, 1fr)" />
             </div>
             <div className="sponsors-content" onClick={handleShowPopup}>
-                {type === 3 ? <ThermoRossiEstufas /> : <ThermoRossiCalderas />}
+                {type === 3 ? <ThermoRossiEstufas /> : type === 4 ? <ThermoRossiCalderas /> : <ThermoRossiSVG />}
             </div>
             {showPopup && <PromoPopUp onClose={() => {
                 setShowPopup(false);
