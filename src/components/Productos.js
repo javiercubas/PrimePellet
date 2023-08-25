@@ -28,7 +28,7 @@ const Productos = (props) => {
             clearInterval(interval);
         };
     }, []);
-
+    
     return (
         <div className="productos" style={{ width: width }}>
             {titulo ? <h3 className="title-productos">{titulo}</h3> : null}
