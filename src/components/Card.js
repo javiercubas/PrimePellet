@@ -12,7 +12,7 @@ const Card = (props) => {
       <div className="foto-card" style={{ backgroundImage: `url(${image})` }} />
       <div className="inside-box">
         <h3 className="title-card">{limitedTitle}</h3>
-        <div className="precio-card">{price} €{(pack==1? '' : '/ud') + (iva == 1? ' + IVA' : ' (IVA INCLUIDO)')}</div>
+        <div className="precio-card">{`${price} €${(pack==1? '' : '/ud')} ${(iva == 1? ' + IVA' : ' (IVA INCLUIDO)')}`}</div>
       </div>
       <button className="cta-card">COMPRA AHORA</button>
     </a>
