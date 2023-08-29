@@ -29,11 +29,6 @@ const Popup = (props) => {
     const parsedCodigoPostal = parseInt(codigoPostal, 10);
     return parsedCodigoPostal >= 1000 && parsedCodigoPostal <= 50999;
   };
-
-  const isValidDNI = (dni) => {
-    const dniPattern = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/;
-    return dniPattern.test(dni);
-  };
   const isValidPhone = (phone) => {
     const phonePattern = /^[0-9]{9}$/; // Ejemplo de validación de 9 dígitos numéricos
     return phonePattern.test(phone);
@@ -44,9 +39,6 @@ const Popup = (props) => {
     e.preventDefault();
     if (codigoPostal != e.target.cp.value && isValidCodigoPostal(e.target.cp.value) && envio) {
       alert("El código postal no coincide con el introducido anteriormente");
-    }
-    else if (!isValidDNI(e.target.dni.value)) {
-      alert("El DNI introducido no es válido");
     }
     else if (!isValidPhone(e.target.telefono.value)) {
       alert("El teléfono introducido no es válido");
