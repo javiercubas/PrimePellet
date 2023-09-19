@@ -69,10 +69,10 @@ const Popup = (props) => {
     onClose();
   };
 
-  // Función para crear la sesión de pago y redireccionar al usuario a la pasarela de pago de Stripe
+  // Función para crear la sesión de pago con BBVA
   const handleBuyNow = async (id) => {
     try {
-      // Hacer una solicitud POST al backend para crear una sesión de pago con Stripe
+      // Hacer una solicitud POST al backend para crear una sesión de pago con BBVA
       const response = await axios.post(
         'http://localhost:80/create-checkout-session', // Especifica la URL completa del backend
         {
@@ -83,17 +83,11 @@ const Popup = (props) => {
           headers: {
             'Content-Type': 'application/json',
           },
-        },
-        {
           withCredentials: true, // Importante: incluir este atributo para enviar cookies
         }
       );
 
-      // Obtener la URL de redirección desde la respuesta del backend
-      const redirectUrl = response.data.redirectUrl;
-
-      // Redirigir al usuario a la pasarela de pago del BBVA
-      window.location.href = redirectUrl;
+      // El backend manejará la redirección a la pasarela de pago de BBVA, no es necesario hacerlo aquí.
     } catch (error) {
       console.error('Error al crear la sesión de pago:', error);
       // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al crear la sesión de pago
