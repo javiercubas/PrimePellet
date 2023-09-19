@@ -74,12 +74,9 @@ const Popup = (props) => {
     try {
       // Hacer una solicitud POST al backend para crear una sesión de pago con Stripe
       const response = await axios.post(
-        'https://api.primepellet.es/create-checkout-session', // Especifica la URL completa del backend
+        'http://localhost:80/create-checkout-session', // Especifica la URL completa del backend
         {
           amount: (envio ? precioFinal : precioPack.toFixed(2)) * 100,
-          currency: 'eur',
-          nombre: nombre,
-          productImage: "https://primepellet.es" + imagen.replaceAll("..", "").replaceAll("//", "/"),
           userId: id,
         },
         {
@@ -92,19 +89,11 @@ const Popup = (props) => {
         }
       );
 
-      // Obtener el ID de la sesión de pago desde la respuesta del backend
-      const sessionId = response.data.id;
+      // Obtener la URL de redirección desde la respuesta del backend
+      const redirectUrl = response.data.redirectUrl;
 
-      // Redireccionar al usuario a la pasarela de pago de Stripe
-      const stripe = window.Stripe('pk_live_51NY3CrIhiBCy1girKTmEw5gbob5qkerzsfG2Q5VjOFMRNND3UiWbPEbFtmyy6L17jb775TROh0ncc9A4x53HXzu000AjdmXMGm'); // Reemplaza 'TU_STRIPE_PUBLIC_KEY' con tu clave pública de Stripe
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: sessionId,
-      });
-
-      if (error) {
-        console.error('Error al redireccionar a la pasarela de pago:', error);
-        // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al redireccionar a la pasarela de pago
-      }
+      // Redirigir al usuario a la pasarela de pago del BBVA
+      window.location.href = redirectUrl;
     } catch (error) {
       console.error('Error al crear la sesión de pago:', error);
       // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al crear la sesión de pago
