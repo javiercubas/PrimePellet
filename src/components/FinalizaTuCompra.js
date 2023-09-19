@@ -83,7 +83,6 @@ const Popup = (props) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          withCredentials: true, // Importante: incluir este atributo para enviar cookies
         }
       );
 
