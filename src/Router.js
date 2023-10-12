@@ -87,7 +87,8 @@ const Router = () => {
                     path={`/productos/${tipoProducto.nombre.toLowerCase().trim().replaceAll(' ', '-')}`} // Cambiar la ruta como desees
                     element={<CategoriaPage key={tipoProducto.uid}
                         titulo={tipoProducto.nombre}
-                        id={tipoProducto.id} />}
+                        id={tipoProducto.id}
+                        type={tipoProducto.id} />}
                 />
             ))}
 

@@ -29,11 +29,6 @@ const Popup = (props) => {
     const parsedCodigoPostal = parseInt(codigoPostal, 10);
     return parsedCodigoPostal >= 1000 && parsedCodigoPostal <= 50999;
   };
-
-  const isValidDNI = (dni) => {
-    const dniPattern = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/;
-    return dniPattern.test(dni);
-  };
   const isValidPhone = (phone) => {
     const phonePattern = /^[0-9]{9}$/; // Ejemplo de validación de 9 dígitos numéricos
     return phonePattern.test(phone);
@@ -44,9 +39,6 @@ const Popup = (props) => {
     e.preventDefault();
     if (codigoPostal != e.target.cp.value && isValidCodigoPostal(e.target.cp.value) && envio) {
       alert("El código postal no coincide con el introducido anteriormente");
-    }
-    else if (!isValidDNI(e.target.dni.value)) {
-      alert("El DNI introducido no es válido");
     }
     else if (!isValidPhone(e.target.telefono.value)) {
       alert("El teléfono introducido no es válido");
@@ -77,42 +69,24 @@ const Popup = (props) => {
     onClose();
   };
 
-  // Función para crear la sesión de pago y redireccionar al usuario a la pasarela de pago de Stripe
+  // Función para crear la sesión de pago con BBVA
   const handleBuyNow = async (id) => {
     try {
-      // Hacer una solicitud POST al backend para crear una sesión de pago con Stripe
+      // Hacer una solicitud POST al backend para crear una sesión de pago con BBVA
       const response = await axios.post(
-        'https://api.primepellet.es/create-checkout-session', // Especifica la URL completa del backend
+        'http://localhost:80/create-checkout-session', // Especifica la URL completa del backend
         {
           amount: (envio ? precioFinal : precioPack.toFixed(2)) * 100,
-          currency: 'eur',
-          nombre: nombre,
-          productImage: "https://primepellet.es" + imagen.replaceAll("..", "").replaceAll("//", "/"),
           userId: id,
         },
         {
           headers: {
             'Content-Type': 'application/json',
           },
-        },
-        {
-          withCredentials: true, // Importante: incluir este atributo para enviar cookies
         }
       );
 
-      // Obtener el ID de la sesión de pago desde la respuesta del backend
-      const sessionId = response.data.id;
-
-      // Redireccionar al usuario a la pasarela de pago de Stripe
-      const stripe = window.Stripe('pk_live_51NY3CrIhiBCy1girKTmEw5gbob5qkerzsfG2Q5VjOFMRNND3UiWbPEbFtmyy6L17jb775TROh0ncc9A4x53HXzu000AjdmXMGm'); // Reemplaza 'TU_STRIPE_PUBLIC_KEY' con tu clave pública de Stripe
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: sessionId,
-      });
-
-      if (error) {
-        console.error('Error al redireccionar a la pasarela de pago:', error);
-        // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al redireccionar a la pasarela de pago
-      }
+      // El backend manejará la redirección a la pasarela de pago de BBVA, no es necesario hacerlo aquí.
     } catch (error) {
       console.error('Error al crear la sesión de pago:', error);
       // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al crear la sesión de pago

@@ -68,9 +68,10 @@
 }
 
 .carousel-arrow {
-    background: none;
+    background-color: black;
+    color: white;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 15px;
     font-size: 20px;
 }
