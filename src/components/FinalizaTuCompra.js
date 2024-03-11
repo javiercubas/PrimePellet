@@ -60,7 +60,22 @@ const Popup = (props) => {
         envio: envio,
       })
         .then((clienteId) => {
-          handleBuyNow(clienteId);
+          console.log('Cliente añadido con ID:', clienteId);
+          enviarMensajeTelegram({
+            nombre: e.target.nombre.value,
+            apellidos: e.target.apellidos.value,
+            correo: e.target.email.value,
+            telefono: e.target.telefono.value,
+            direccion: e.target.direccion.value,
+            codigoPostal: e.target.cp.value,
+            provincia: e.target.provincia.value,
+            localidad: e.target.localidad.value,
+            dni: e.target.dni.value,
+            producto: nombre,
+            precio: (envio ? precioFinal : precioPack.toFixed(2)),
+            envio: envio,
+          });
+          alert('Pedido realizado correctamente');
         })
     }
   };
@@ -69,28 +84,51 @@ const Popup = (props) => {
     onClose();
   };
 
-  // Función para crear la sesión de pago con BBVA
-  const handleBuyNow = async (id) => {
-    try {
-      // Hacer una solicitud POST al backend para crear una sesión de pago con BBVA
-      const response = await axios.post(
-        'http://localhost:80/create-checkout-session', // Especifica la URL completa del backend
-        {
-          amount: (envio ? precioFinal : precioPack.toFixed(2)) * 100,
-          userId: id,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+  const telegramBotToken = '6724514229:AAG8701iy0TjsH2th9zqMOextHtM48r4Jco';
+  const chatId = '-1002026996176';
 
-      // El backend manejará la redirección a la pasarela de pago de BBVA, no es necesario hacerlo aquí.
+  // Función para enviar un mensaje al bot de Telegram con los datos del pedido
+  async function enviarMensajeTelegram(datosPedido) {
+    try {
+      const mensaje = `
+            Nuevo pedido recibido:
+            - Nombre: ${datosPedido.nombre} ${datosPedido.apellidos}
+            - Correo: ${datosPedido.correo}
+            - Teléfono: ${datosPedido.telefono}
+            - Dirección: ${datosPedido.direccion}
+            - Código Postal: ${datosPedido.codigoPostal}
+            - Provincia: ${datosPedido.provincia}
+            - Localidad: ${datosPedido.localidad}
+            - DNI: ${datosPedido.dni}
+            - Producto: ${datosPedido.producto}
+            - Precio: ${datosPedido.precio}
+            - Envío: ${datosPedido.envio}
+        `;
+
+      await axios.post(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+        chat_id: chatId,
+        text: mensaje,
+      });
+      console.log('Mensaje enviado a Telegram');
     } catch (error) {
-      console.error('Error al crear la sesión de pago:', error);
-      // Puedes mostrar un mensaje de error o tomar otra acción en caso de que haya un error al crear la sesión de pago
+      console.error('Error al enviar el mensaje a Telegram:', error.message);
     }
+  }
+
+  // Ejemplo de uso
+  const pedidoEjemplo = {
+    nombre: 'Juan',
+    apellidos: 'Pérez',
+    correo: 'juan@example.com',
+    telefono: '123456789',
+    direccion: 'Calle Principal 123',
+    codigoPostal: '28001',
+    provincia: 'Madrid',
+    localidad: 'Madrid',
+    dni: '12345678X',
+    producto: 'Producto ABC',
+    precio: '100€',
+    envio: 'Express',
   };
 
   return (
