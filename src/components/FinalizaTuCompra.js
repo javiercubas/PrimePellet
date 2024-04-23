@@ -75,10 +75,8 @@ const Popup = (props) => {
     try {
       event.preventDefault();
 
-      console.log(precio * 100);
-
       try {
-        const response = await axios.post('http://localhost:3001/create-payment', {
+        const response = await axios.post('https://api.primepellet.es/create-payment', {
           amount: precio * 100,
           order: id,
         });
