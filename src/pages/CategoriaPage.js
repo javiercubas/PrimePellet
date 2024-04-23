@@ -43,7 +43,7 @@ const CategoriaSection = (props) => {
             <div className="categoria-page-container">
                 <h2 className="categoria-page-titulo">{titulo}</h2>
                 <div dangerouslySetInnerHTML={{ __html: descripcion }} className='categoria-page-descripcion' />
-                <Productos productos={productos} width="100%" grid="repeat(4, 1fr)" />
+                <Productos productos={productos} width="100%" grid="repeat(3, 1fr)" />
             </div>
             <div className="sponsors-content" onClick={handleShowPopup}>
                 {type === 3 ? <ThermoRossiEstufas /> : type === 4 ? <ThermoRossiCalderas /> : <ThermoRossiSVG />}

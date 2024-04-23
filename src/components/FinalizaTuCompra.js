@@ -5,11 +5,12 @@ import { FaTimes } from 'react-icons/fa';
 import './FinalizaTuCompra.css'
 import axios from 'axios';
 import { addCliente } from '../modelos/ClienteModel';
+import { set } from 'react-ga';
 // Importamos las cookies
 const cookies = new Cookies();
 
 const Popup = (props) => {
-  const { nombre, imagen, precioPack, envio, precioFinal, onClose } = props;
+  const { nombre, imagen, precio, envio, onClose } = props;
 
   const formRef = useRef();
 
@@ -55,27 +56,12 @@ const Popup = (props) => {
         localidad: e.target.localidad.value,
         dni: e.target.dni.value,
         producto: nombre,
-        precio: (envio ? precioFinal : precioPack.toFixed(2)),
+        precio: (precio),
         pagado: false,
         envio: envio,
       })
         .then((clienteId) => {
-          console.log('Cliente añadido con ID:', clienteId);
-          enviarMensajeTelegram({
-            nombre: e.target.nombre.value,
-            apellidos: e.target.apellidos.value,
-            correo: e.target.email.value,
-            telefono: e.target.telefono.value,
-            direccion: e.target.direccion.value,
-            codigoPostal: e.target.cp.value,
-            provincia: e.target.provincia.value,
-            localidad: e.target.localidad.value,
-            dni: e.target.dni.value,
-            producto: nombre,
-            precio: (envio ? precioFinal : precioPack.toFixed(2)),
-            envio: envio,
-          });
-          alert('Pedido realizado correctamente');
+          handleBuyNow(e, clienteId);
         })
     }
   };
@@ -84,52 +70,45 @@ const Popup = (props) => {
     onClose();
   };
 
-  const telegramBotToken = '6724514229:AAG8701iy0TjsH2th9zqMOextHtM48r4Jco';
-  const chatId = '-1002026996176';
-
-  // Función para enviar un mensaje al bot de Telegram con los datos del pedido
-  async function enviarMensajeTelegram(datosPedido) {
+  // Función para crear la sesión de pago con BBVA
+  const handleBuyNow = async (event, id) => {
     try {
-      const mensaje = `
-            Nuevo pedido recibido:
-            - Nombre: ${datosPedido.nombre} ${datosPedido.apellidos}
-            - Correo: ${datosPedido.correo}
-            - Teléfono: ${datosPedido.telefono}
-            - Dirección: ${datosPedido.direccion}
-            - Código Postal: ${datosPedido.codigoPostal}
-            - Provincia: ${datosPedido.provincia}
-            - Localidad: ${datosPedido.localidad}
-            - DNI: ${datosPedido.dni}
-            - Producto: ${datosPedido.producto}
-            - Precio: ${datosPedido.precio}
-            - Envío: ${datosPedido.envio}
-        `;
+      event.preventDefault();
 
-      await axios.post(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-        chat_id: chatId,
-        text: mensaje,
-      });
-      console.log('Mensaje enviado a Telegram');
+      console.log(precio * 100);
+
+      try {
+        const response = await axios.post('http://localhost:3001/create-payment', {
+          amount: precio * 100,
+          order: id,
+        });
+
+        const { params, signature } = response.data;
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+        form.appendChild(createHiddenInput('Ds_SignatureVersion', 'HMAC_SHA256_V1'));
+        form.appendChild(createHiddenInput('Ds_MerchantParameters', params));
+        form.appendChild(createHiddenInput('Ds_Signature', signature));
+        document.body.appendChild(form);
+        form.submit();
+      } catch (error) {
+        console.error('Payment failed:', error);
+      }
     } catch (error) {
-      console.error('Error al enviar el mensaje a Telegram:', error.message);
+      console.error('Error:', error);
     }
-  }
-
-  // Ejemplo de uso
-  const pedidoEjemplo = {
-    nombre: 'Juan',
-    apellidos: 'Pérez',
-    correo: 'juan@example.com',
-    telefono: '123456789',
-    direccion: 'Calle Principal 123',
-    codigoPostal: '28001',
-    provincia: 'Madrid',
-    localidad: 'Madrid',
-    dni: '12345678X',
-    producto: 'Producto ABC',
-    precio: '100€',
-    envio: 'Express',
   };
+
+  const createHiddenInput = (name, value) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+  };
+
 
   return (
     <div id="popup-container" className="popup-container">
