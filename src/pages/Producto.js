@@ -893,7 +893,7 @@ const Producto = (props) => {
                     <div dangerouslySetInnerHTML={{ __html: descripcion }} />
                 </div>
                 <button className="cta-producto-page" onClick={handleShowPopup}>COMPRAR AHORA</button>
-                {showPopup && <FinalizaTuCompra nombre={nombre} imagen={imagen} envio={envio} precio={pack > 1 ? precioPack : precioFinal} onClose={() => {
+                {showPopup && <FinalizaTuCompra nombre={nombre} imagen={imagen} envio={envio} precio={envio ? precioFinal : precioPack} onClose={() => {
                     setShowPopup(false);
                     document.body.style.overflow = 'unset';
                 }} />}
