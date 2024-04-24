@@ -18,7 +18,7 @@ const Footer = () => {
 
             <div className="footer-bottom">
                 <p className="footer-bottom-text">© 2023 primePELLET. Todos los derechos reservados.</p>
-                <a href="/terminos-y-condiciones" className="footer-button">Terminos y condiciones</a>
+                <a href="/terminos-y-condiciones" className="footer-button">Términos y condiciones</a>
             </div>
         </div>
     )
