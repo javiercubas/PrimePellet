@@ -3,7 +3,7 @@ import './Terminos.css';
 export default function Terminos() {
     return (
         <div className="terminos-container">
-            <h1>Términos y condiciones:</h1>
+            <h1>Términos y condiciones</h1>
 
             <h2>Legal:</h2>
             <p>Sitio WEB: <a href="http://primePELLET.es">primePELLET.es</a></p>
