@@ -13,6 +13,7 @@ import { getMarcas } from './modelos/MarcaModel';
 import { getTiposProductos } from './modelos/TipoProductoModel'
 import CompraExitosa from './pages/CompraExitosa'
 import SitemapViewer from './pages/SitemapViewer'
+import Terminos from './pages/Terminos'
 
 const Router = () => {
 
@@ -50,6 +51,7 @@ const Router = () => {
             <Route path="/sobre-nosotros" element={<SobreNosotros />} />
             <Route path="/compra-exitosa" element={<CompraExitosa />} />
             <Route path="/sitemap.xml" element={<SitemapViewer />} />
+            <Route path="/terminos-y-condiciones" element={<Terminos />} />
             {productos.map(producto => (
                 <Route
                     key={producto.id} // Asegúrate de tener una propiedad 'id' única para cada producto en Firestore
