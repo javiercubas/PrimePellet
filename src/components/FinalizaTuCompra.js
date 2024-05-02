@@ -77,8 +77,12 @@ const Popup = (props) => {
 
       try {
         const response = await axios.post('https://api.primepellet.es/create-payment', {
-          amount: precio * 100,
+          amount: precio.toFixed(4) * 100,
           order: id,
+          terminal: '001',
+          url: 'https://primepellet.es/notificacion',
+          urlOK: 'https://primepellet.es/compra-exitosa',
+          urlKO: 'https://primepellet.es/compra-fallida',
         });
 
         const { params, signature } = response.data;

@@ -14,8 +14,7 @@ export default function Terminos() {
 
             <h2>Entrega de Pedidos y Envíos:</h2>
             <p>Una vez abonado en su totalidad y confirmada su preparación, el Pedido estará disponible para el Usuario a través del Servicio de Transporte o la recogida en Almacén, CENTRO LOGÍSTICO o Planta de Producción.</p>
-
-            <h2>Condiciones Generales del Servicio de Transporte:</h2>
+            <h3>POLITICA DE ENVIOS: Plazo de entrega, costes, forma, etc...</h3>
             <p>
                 El horario de entrega es de lunes a viernes, y posiblemente los sábados, de 8:00 a 20:00 horas.
                 El Transportista notificará al Cliente antes de cargar el pedido en el almacén primePELLET . El Cliente exonera a primePELLET de cualquier responsabilidad por demoras en la entrega debido a causas ajenas a su control.
@@ -25,10 +24,15 @@ export default function Terminos() {
                 En caso de incumplimiento de las condiciones anteriores, el Transportista retornará al Almacén primePELLET . El Cliente puede solicitar un nuevo servicio de transporte (segunda expedición, con costo adicional) o desistir del pedido.
                 Si se solicita un transporte especial con grúa, el Cliente debe obtener los permisos necesarios y asumir toda la responsabilidad.
                 El Cliente puede autorizar a un tercero para la recogida presentando el código QR del correo electrónico de confirmación del pedido y su documento de identidad. En ausencia del Cliente o su autorizado, el Transportista informará a primePELLET y al Cliente, regresando al Almacén.
+            </p>
+            <h2>Cancelación y devolución de pedidos</h2>
+            <p>
                 En caso de desistimiento del pedido, el Cliente deberá pagar la tarifa de ida y vuelta del transporte, además de los costos de preparación del pedido, sin reembolso de los costos de transporte ya incurridos.
                 Cualquier problema con el servicio de transporte debe ser comunicado por el Cliente a primePELLET dentro de las 12 horas siguientes a la entrega, de lo contrario, primePELLET queda exento de responsabilidad, excepto por el ejercicio del derecho de garantía u otros legalmente establecidos.
                 El pago del pedido, que incluye una fianza por unidad de palet y su costo de preparación, debe realizarse antes del transporte. La devolución de la fianza por palet será responsabilidad exclusiva del Cliente y no del transportista.
             </p>
+            <h2>Reembolsos</h2>
+            <p>En caso de devolución el dinero será reembolsado al cliente por el mismo método de pago o en caso de que surgiera alguna imposibilidad por transferencia bancaria</p>
             <h2>Política de Cookies</h2>
             <p>Durante la visita a nuestra página web www.primePELLET.com , se descargarán cookies en su dispositivo (ordenador, móvil o tableta). Estas cookies son fundamentales para ofrecerle una experiencia personalizada y satisfacer sus necesidades y expectativas como cliente. Gracias a ellas, podemos identificarlo, permitirle acceder a su cuenta, gestionar su carrito de compras, almacenar consultas y personalizar nuestras ofertas.
             </p>
