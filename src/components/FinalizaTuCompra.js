@@ -89,7 +89,7 @@ const Popup = (props) => {
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+        form.action = 'https://sis.redsys.es/sis/realizarPago';
         form.appendChild(createHiddenInput('Ds_SignatureVersion', 'HMAC_SHA256_V1'));
         form.appendChild(createHiddenInput('Ds_MerchantParameters', params));
         form.appendChild(createHiddenInput('Ds_Signature', signature));
