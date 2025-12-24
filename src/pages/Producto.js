@@ -753,7 +753,8 @@ const Producto = (props) => {
             }
 
             if (estaDentro) {
-                tipo = tipo * 1.21;
+                tipo = tipo * 1.40;  // +40% envío
+                tipo = tipo * 1.21; // IVA
                 const precioFinal = (precio + tipo).toFixed(2);
                 console.log(`El precio final para el código postal ${cp} y tipo de pallet ${tipoPallet} es: ${precioFinal}`);
                 return precioFinal;
